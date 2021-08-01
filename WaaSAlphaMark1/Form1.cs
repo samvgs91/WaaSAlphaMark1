@@ -46,6 +46,8 @@ namespace WaaSAlphaMark1
         }
 
 
+        DataGridViewComboBoxColumn modelColumnTypeCombo = new DataGridViewComboBoxColumn();
+        
         SqlConnection sqlCon = new SqlConnection("Data Source=dccsrveu2taller03.database.windows.net;Initial Catalog=dccadbeu2taller03;Persist Security Info=True;User ID=adminusr;Password=@psstaller01");
         DataTable dtInsert = new DataTable();
         DataTable dtEdited = new DataTable();
@@ -250,8 +252,6 @@ namespace WaaSAlphaMark1
                         dataGridView1.Visible = true;
                         dataGridView1.DataSource = dtExcel;
                         dtInsert = dtExcel;
-
-
                     }
                     catch (Exception ex)
                     {
@@ -306,7 +306,7 @@ namespace WaaSAlphaMark1
                     int contador = 1;
                     foreach (DataColumn column in dtexcel.Columns)
                     {
-                        dt.Rows.Add(contador, column.ColumnName.ToString(), column.DataType.ToString().Replace("System.", ""), "Attribute");
+                        dt.Rows.Add(contador, column.ColumnName.ToString(), column.DataType.ToString().Replace("System.", ""),"Attribute");
                         contador += 1;
                     }
 
@@ -446,6 +446,29 @@ namespace WaaSAlphaMark1
         }
 
 
+        private DataTable GetListComboxModelColumnType() 
+        {
+            //DataGridViewComboBoxCell comboBoxColumn = new DataGridViewComboBoxCell();
+
+            //SqlDataAdapter comboadapter = new SqlDataAdapter("EXEC [WaaS].[USP_WAAS_GET_MODEL_TYPES]", sqlCon);
+            //DataSet ds = new DataSet();
+            //comboadapter.Fill(ds);
+            //dataGridView1.Columns.Add(modelColumnTypeCombo);
+
+
+            DataTable dtModelColumnType = new DataTable();
+            dtModelColumnType.Columns.Add("ModelColumnType", typeof(string));
+
+            dtModelColumnType.Rows.Add("Attribute");
+            dtModelColumnType.Rows.Add("Metric");
+
+            //comboBoxColumn.DataSource = dtModelColumnType;
+            //comboBoxColumn.DisplayMember = "ModelColumnType";
+            //comboBoxColumn.ValueMember = "ModelColumnType";
+
+            return dtModelColumnType;
+        }
+
         private void GetTableMetadata(String userId, String tableName)
         {
 
@@ -462,11 +485,10 @@ namespace WaaSAlphaMark1
             da.Fill(dtMetadata);
 
             sqlCon.Close();
+
             dataGridView1.Visible = true;
             dataGridView1.DataSource = dtMetadata;
             dataGridView1.ReadOnly = true;
-
-            
         }
 
 
@@ -591,6 +613,23 @@ namespace WaaSAlphaMark1
         private void btnModelProcess_Click(object sender, EventArgs e)
         {
             ProcessModel(this.userId, this.tableName);
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex > -1)
+            {
+
+                DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
+
+                if (dataGridView1.Columns[e.ColumnIndex].Name.Contains("ColumnModelType"))
+                {
+                   dataGridView1[e.ColumnIndex, e.RowIndex] = comboBoxCell;
+                    comboBoxCell.DataSource = GetListComboxModelColumnType();
+                    comboBoxCell.ValueMember = "ModelColumnType";
+                    comboBoxCell.DisplayMember = "ModelColumnType";
+                }
+            }
         }
     }
 }
