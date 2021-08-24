@@ -35,6 +35,7 @@ namespace WaaSAlphaMark1
             this.btnConnect = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvWarehouseTableList = new System.Windows.Forms.DataGridView();
+            this.btnDropTable = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.uSPWAASGETTABLESBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWarehouseTableList)).BeginInit();
             this.SuspendLayout();
@@ -81,13 +82,24 @@ namespace WaaSAlphaMark1
             this.dgvWarehouseTableList.Name = "dgvWarehouseTableList";
             this.dgvWarehouseTableList.Size = new System.Drawing.Size(453, 235);
             this.dgvWarehouseTableList.TabIndex = 11;
-            this.dgvWarehouseTableList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvWarehouseTableList_CellContentClick);
+            this.dgvWarehouseTableList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvWarehouseTableList_CellContentDoubleClick);
+            // 
+            // btnDropTable
+            // 
+            this.btnDropTable.Location = new System.Drawing.Point(518, 235);
+            this.btnDropTable.Name = "btnDropTable";
+            this.btnDropTable.Size = new System.Drawing.Size(121, 53);
+            this.btnDropTable.TabIndex = 12;
+            this.btnDropTable.Text = "Eliminar Tabla";
+            this.btnDropTable.UseVisualStyleBackColor = true;
+            this.btnDropTable.Click += new System.EventHandler(this.btnDropTable_Click);
             // 
             // FirstViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnDropTable);
             this.Controls.Add(this.dgvWarehouseTableList);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnConnect);
@@ -108,5 +120,6 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.BindingSource uSPWAASGETTABLESBindingSource;
         private System.Windows.Forms.DataGridView dgvWarehouseTableList;
+        private System.Windows.Forms.Button btnDropTable;
     }
 }

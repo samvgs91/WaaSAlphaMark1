@@ -140,6 +140,7 @@ namespace WaaSAlphaMark1
             this.btnEliminarArchivo.TabIndex = 11;
             this.btnEliminarArchivo.Text = "Eliminar Archivo";
             this.btnEliminarArchivo.UseVisualStyleBackColor = true;
+            this.btnEliminarArchivo.Click += new System.EventHandler(this.btnEliminarArchivo_Click);
             // 
             // btnModelCreateUpdate
             // 

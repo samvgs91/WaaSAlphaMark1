@@ -302,11 +302,12 @@ namespace WaaSAlphaMark1
                     dt.Columns.Add("ColumnName", typeof(string));
                     dt.Columns.Add("ColumnDataType", typeof(string));
                     dt.Columns.Add("ColumnModelType", typeof(string));
+                    dt.Columns.Add("ColumnMetricType", typeof(string));
 
                     int contador = 1;
                     foreach (DataColumn column in dtexcel.Columns)
                     {
-                        dt.Rows.Add(contador, column.ColumnName.ToString(), column.DataType.ToString().Replace("System.", ""),"Attribute");
+                        dt.Rows.Add(contador, column.ColumnName.ToString(), column.DataType.ToString().Replace("System.", ""),"Attribute","");
                         contador += 1;
                     }
 
@@ -446,25 +447,26 @@ namespace WaaSAlphaMark1
         }
 
 
-        private DataTable GetListComboxModelColumnType() 
+        private DataTable GetListComboxModelAggFunc() 
         {
-            //DataGridViewComboBoxCell comboBoxColumn = new DataGridViewComboBoxCell();
+            DataTable dtModelMetricFuncType = new DataTable();
+            dtModelMetricFuncType.Columns.Add("ColMetricFuncType", typeof(string));
 
-            //SqlDataAdapter comboadapter = new SqlDataAdapter("EXEC [WaaS].[USP_WAAS_GET_MODEL_TYPES]", sqlCon);
-            //DataSet ds = new DataSet();
-            //comboadapter.Fill(ds);
-            //dataGridView1.Columns.Add(modelColumnTypeCombo);
+            dtModelMetricFuncType.Rows.Add("SUM");
+            dtModelMetricFuncType.Rows.Add("COUNT");
+            dtModelMetricFuncType.Rows.Add("AVERAGE");
+            dtModelMetricFuncType.Rows.Add("DISTINCTCOUNT");
 
-
+            return dtModelMetricFuncType;
+        }
+        
+        private DataTable GetListComboxModelColumnType()
+        {
             DataTable dtModelColumnType = new DataTable();
             dtModelColumnType.Columns.Add("ModelColumnType", typeof(string));
 
             dtModelColumnType.Rows.Add("Attribute");
             dtModelColumnType.Rows.Add("Metric");
-
-            //comboBoxColumn.DataSource = dtModelColumnType;
-            //comboBoxColumn.DisplayMember = "ModelColumnType";
-            //comboBoxColumn.ValueMember = "ModelColumnType";
 
             return dtModelColumnType;
         }
@@ -532,9 +534,11 @@ namespace WaaSAlphaMark1
                 //LoadFileIntoStorage(userId, tableName);
 
 
-                txtTableName.Text = "";
-                dataGridView1.DataSource = null;
-                dataGridView1.Refresh();
+                //txtTableName.Text = "";
+                //dataGridView1.DataSource = null;
+                //dataGridView1.Refresh();
+
+                FillDataFromTable(tableName);
 
                 MessageBox.Show("Table Created", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);//custom messageBox to show error
             }
@@ -592,6 +596,31 @@ namespace WaaSAlphaMark1
             blob.UploadFromFile(path);
         }
 
+        private void DeleteBlobFileByName(string path, string fileName)
+        {
+            StorageCredentials credentials = new StorageCredentials(storageName, storageKey);
+            CloudStorageAccount storageAccount = new CloudStorageAccount(credentials, useHttps: true);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer blobContainer = blobClient.GetContainerReference(containerName);
+            //blobContainer.Create();
+            CloudBlockBlob blob = blobContainer.GetBlockBlobReference(fileName);
+            //blob.UploadFromFile("D:\\A Peruvian Software Company\\WaaS 1 Project\\Sample Data\\DataExample.xlsx");
+            blob.Properties.ContentType = "data/excel";
+            blob.DeleteIfExists();
+        }
+
+        public void DeleteFileDataFromTable(string userId, string userTableName, string fileName)
+        {
+            sqlCon.Open();
+            SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_DELETE_FILEDATA]", sqlCon);
+            cmd.Parameters.AddWithValue("@UserId", userId); // passing UserIde 
+            cmd.Parameters.AddWithValue("@TableId", userTableName); // passing UserTableName 
+            cmd.Parameters.AddWithValue("@FileName", fileName); // passing fileName
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.ExecuteNonQuery();
+            sqlCon.Close();
+        }
+
         private void btnLoadFile_Click(object sender, EventArgs e)
         {
             if (dgvFiles.SelectedCells.Count > 0)
@@ -617,18 +646,51 @@ namespace WaaSAlphaMark1
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ColumnIndex > -1)
+            if (e.ColumnIndex > -1)
             {
 
                 DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
 
+                //int selectedrowindex = dgvFiles.SelectedCells[e.].RowIndex;
+                //DataGridViewRow selectedRow = dgvFiles.Rows[selectedrowindex];
+                //string colTypeName = Convert.ToString(selectedRow.Cells["ColumnModelType"].Value);
+                string colTypeName = "";
+
+                if (e.ColumnIndex > 0)
+                { 
+                       colTypeName = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                }
+
                 if (dataGridView1.Columns[e.ColumnIndex].Name.Contains("ColumnModelType"))
                 {
-                   dataGridView1[e.ColumnIndex, e.RowIndex] = comboBoxCell;
+                    dataGridView1[e.ColumnIndex, e.RowIndex] = comboBoxCell;
                     comboBoxCell.DataSource = GetListComboxModelColumnType();
                     comboBoxCell.ValueMember = "ModelColumnType";
                     comboBoxCell.DisplayMember = "ModelColumnType";
+                } else
+                if (dataGridView1.Columns[e.ColumnIndex].Name.Contains("ColumnMetricType") && colTypeName == "Metric")
+                {
+                    dataGridView1[e.ColumnIndex, e.RowIndex] = comboBoxCell;
+                    comboBoxCell.DataSource = GetListComboxModelAggFunc();
+                    comboBoxCell.ValueMember = "ColMetricFuncType";
+                    comboBoxCell.DisplayMember = "ColMetricFuncType";
                 }
+
+
+            }
+        }
+
+        private void btnEliminarArchivo_Click(object sender, EventArgs e)
+        {
+            if (dgvFiles.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgvFiles.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvFiles.Rows[selectedrowindex];
+                string FileName = Convert.ToString(selectedRow.Cells["FileName"].Value);
+
+                DeleteFileDataFromTable(this.userId, this.tableName, FileName);
+                ProcessModel(this.userId, this.tableName);
+                GetBlobStatus(this.userId, this.tableName);
             }
         }
     }
