@@ -12,17 +12,16 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data.OleDb;
 
-
 using Microsoft.Azure.Storage;
 using Microsoft.Azure.Storage.Auth;
 using Microsoft.Azure.Storage.Blob;
-
 
 using Microsoft.Rest;
 using Microsoft.Azure.Management.DataFactory;
 using Microsoft.Azure.Management.DataFactory.Models;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-
+using ExcelDataReader;
+using System.Windows.Controls;
 
 namespace WaaSAlphaMark1
 {
@@ -36,6 +35,7 @@ namespace WaaSAlphaMark1
         public Form1(String _param, String _tableId,FirstViewForm callingForm) : this()
         {
             this.CallingForm = callingForm;
+          
 
             if (_param == "EDIT")
             {
@@ -44,7 +44,6 @@ namespace WaaSAlphaMark1
                 FillDataFromTable(tableName);
             }
         }
-
 
         DataGridViewComboBoxColumn modelColumnTypeCombo = new DataGridViewComboBoxColumn();
         
@@ -104,23 +103,29 @@ namespace WaaSAlphaMark1
         private void Form1_Load(object sender, EventArgs e)
         {
             dataGridView1.Visible = false;
+            txtFileName.Enabled = false;
         }
 
         private String GetBlobId(String fileName,String userId)
         {
-            DataTable dtBlogTable = new DataTable();
 
-            sqlCon.Open();
-            SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_GET_BLOBID_BY_FILENAME]", sqlCon);
-            cmd.Parameters.AddWithValue("@fileName", fileName); // passing Datatable 
-            cmd.Parameters.AddWithValue("@userId", userId); // passing Datatable 
-            cmd.CommandType = CommandType.StoredProcedure;
+            string blobId = String.Empty;
 
-            SqlDataAdapter da = new SqlDataAdapter();
-            da.SelectCommand = cmd;
-            da.Fill(dtBlogTable);
-            sqlCon.Close();
-            String blobId = dtBlogTable.Rows[0].Field<Guid>("BlobPathId").ToString();
+            blobId = DBManager.GetBlobId(fileName, userId);
+
+            //DataTable dtBlogTable = new DataTable();
+
+            //sqlCon.Open();
+            //SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_GET_BLOBID_BY_FILENAME]", sqlCon);
+            //cmd.Parameters.AddWithValue("@fileName", fileName); // passing Datatable 
+            //cmd.Parameters.AddWithValue("@userId", userId); // passing Datatable 
+            //cmd.CommandType = CommandType.StoredProcedure;
+
+            //SqlDataAdapter da = new SqlDataAdapter();
+            //da.SelectCommand = cmd;
+            //da.Fill(dtBlogTable);
+            //sqlCon.Close();
+            //String blobId = dtBlogTable.Rows[0].Field<Guid>("BlobPathId").ToString();
                 
             return blobId;
         }
@@ -128,49 +133,17 @@ namespace WaaSAlphaMark1
         private void LaunchADFProcess(String tblName, String fleName)
         {
 
-                String blobId = GetBlobId(fleName, userId);
+            String blobId = DBManager.GetBlobId(fleName, userId);
 
-                var context = new AuthenticationContext("https://login.microsoftonline.com/" + tenantID);
-                ClientCredential cc = new ClientCredential(applicationId, authenticationKey);
-                AuthenticationResult result = context.AcquireTokenAsync(
-                    "https://management.azure.com/", cc).Result;
-                ServiceClientCredentials cred = new TokenCredentials(result.AccessToken);
-                var client = new DataFactoryManagementClient(cred)
-                {
-                    SubscriptionId = subscriptionId
-                };
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                { "blobId", blobId},
+                { "userId", userId}
+            };
 
+            ADFManager.LauchADFPipeline(parameters, "WaaSDataLoader");
 
-                Console.WriteLine("Creating pipeline run...");
-                Dictionary<string, object> parameters = new Dictionary<string, object>
-                {
-                    //{ tableName, fileName },
-                    { "blobId", blobId},
-                    { "userId", userId}
-                    //{ "outputPath", outputBlobPath }
-                };
-                CreateRunResponse runResponse = client.Pipelines.CreateRunWithHttpMessagesAsync(
-                    resourceGroup, dataFactoryName, pipelineName, parameters: parameters
-                ).Result.Body;
-                Console.WriteLine("Pipeline run ID: " + runResponse.RunId);
-
-                var runId = runResponse.RunId;
-
-                Console.WriteLine("Checking pipeline run status...");
-                PipelineRun pipelineRun;
-
-                while (true)
-                {
-                    pipelineRun =  client.PipelineRuns.Get(resourceGroup, dataFactoryName, runId);
-                    Console.WriteLine("Status: " + pipelineRun.Status);
-                    if (pipelineRun.Status == "InProgress" || pipelineRun.Status == "Queued")
-                        System.Threading.Thread.Sleep(15000);
-                    else
-                        break;
-                }
-
-
-                MessageBox.Show("ADF Launched Successfully", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("ADF Launched Successfully", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
@@ -240,18 +213,44 @@ namespace WaaSAlphaMark1
             OpenFileDialog file = new OpenFileDialog();//open dialog to choose file
             if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)//if there is a file choosen by the user
             {
+                txtFileName.Text = file.FileName;
+
                 filePath = file.FileName;//get the path of the file
+                ///
+                DataTableCollection dataTableCollection;
+                DataTable dt;
+
+                using (var stream = File.Open(file.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                        {
+                            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                        });
+                        dataTableCollection = result.Tables;
+                        //cboData.DataSource = null;
+                        cboSheet.Items.Clear();
+                        cboSheet.Items.AddRange(dataTableCollection.Cast<DataTable>().Select(t => t.TableName).ToArray<string>());
+                        cboSheet.SelectedIndex = cboSheet.Items.Count - 1;
+                    }
+                }
+                ///
+
+
+
+
                 fileName = file.SafeFileName;
                 fileExt = Path.GetExtension(filePath);//get the file extension
                 if (fileExt.CompareTo(".xls") == 0 || fileExt.CompareTo(".xlsx") == 0)
                 {
                     try
                     {
-                        DataTable dtExcel = new DataTable();
-                        dtExcel = ReadExcel(filePath, fileExt);//read excel file
+                        DataTable MetadataDT = new DataTable();
+                        MetadataDT = ReadExcel(filePath, fileExt,cboSheet.Text);//read excel file
                         dataGridView1.Visible = true;
-                        dataGridView1.DataSource = dtExcel;
-                        dtInsert = dtExcel;
+                        dataGridView1.DataSource = MetadataDT;
+                        dtInsert = MetadataDT;
                     }
                     catch (Exception ex)
                     {
@@ -281,9 +280,12 @@ namespace WaaSAlphaMark1
             
         }
 
-        public DataTable ReadExcel(string fileName, string fileExt)
+        public DataTable ReadExcel(string fileName, string fileExt, string sheetName)
         {
+            DataTable Localdt = new DataTable("Metadata");
+            DataTable LocalExcelData = new DataTable();
 
+            string oledbscript = "select * from [" + sheetName + "$]";
 
             if (fileExt.CompareTo(".xls") == 0)//compare the extension of the file
                 conn = @"provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileName + ";Extended Properties='Excel 8.0;HRD=Yes;IMEX=1';";//for below excel 2007
@@ -293,21 +295,22 @@ namespace WaaSAlphaMark1
             {
                 try
                 {
-                    OleDbDataAdapter oleAdpt = new OleDbDataAdapter("select * from [Sheet1$]", con);//here we read data from sheet1
-                    oleAdpt.Fill(dtexcel);//fill excel data into dataTable
+
+                    OleDbDataAdapter oleAdpt = new OleDbDataAdapter(oledbscript, con);//here we read data from sheet1
+                    oleAdpt.Fill(LocalExcelData);//fill excel data into dataTable
 
                     //dt.Columns.Add("UserId", typeof(string));
                     //dt.Columns.Add("TableName", typeof(string));
-                    dt.Columns.Add("SourceColumn", typeof(string));
-                    dt.Columns.Add("ColumnName", typeof(string));
-                    dt.Columns.Add("ColumnDataType", typeof(string));
-                    dt.Columns.Add("ColumnModelType", typeof(string));
-                    dt.Columns.Add("ColumnMetricType", typeof(string));
+                    Localdt.Columns.Add("SourceColumn", typeof(string));
+                    Localdt.Columns.Add("ColumnName", typeof(string));
+                    Localdt.Columns.Add("ColumnDataType", typeof(string));
+                    Localdt.Columns.Add("ColumnModelType", typeof(string));
+                    Localdt.Columns.Add("ColumnMetricType", typeof(string));
 
                     int contador = 1;
-                    foreach (DataColumn column in dtexcel.Columns)
+                    foreach (DataColumn column in LocalExcelData.Columns)
                     {
-                        dt.Rows.Add(contador, column.ColumnName.ToString(), column.DataType.ToString().Replace("System.", ""),"Attribute","");
+                        Localdt.Rows.Add(contador, column.ColumnName.ToString(), column.DataType.ToString().Replace("System.", ""),"Attribute","");
                         contador += 1;
                     }
 
@@ -318,7 +321,7 @@ namespace WaaSAlphaMark1
                 }
             }
             //return dtexcel;
-            return dt;
+            return Localdt;
         }
 
         private void DatasetInsert(DataTable dt,String userId, String tableName)
@@ -634,14 +637,22 @@ namespace WaaSAlphaMark1
             }
         }
 
-        private void btnModelCreateUpdate_Click(object sender, EventArgs e)
+        private async void btnModelCreateUpdate_Click(object sender, EventArgs e)
         {
-            DeployModel(this.userId, this.tableName);
+            //DeployModel(this.userId, this.tableName);
+
+            String xmlJson = DBManager.GetXMLJson(tableName, userId, "Create");
+            await DBASManager.ExecuteXMLAOnAzureAnalysisService(xmlJson);
+            MessageBox.Show("SSAS Table in Model Created Successfully", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void btnModelProcess_Click(object sender, EventArgs e)
+        private async void btnModelProcess_Click(object sender, EventArgs e)
         {
-            ProcessModel(this.userId, this.tableName);
+            //ProcessModel(this.userId, this.tableName);
+
+            String xmlJson = DBManager.GetXMLJson(tableName, userId, "Process");
+            await DBASManager.ExecuteXMLAOnAzureAnalysisService(xmlJson);
+            MessageBox.Show("SSAS Table in Model Process Successfully", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -692,6 +703,40 @@ namespace WaaSAlphaMark1
                 ProcessModel(this.userId, this.tableName);
                 GetBlobStatus(this.userId, this.tableName);
             }
+        }
+
+        private void cboSheet_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            string fileExt = String.Empty;
+            string sheetName = String.Empty;
+
+            //sheetName = cboSheet.SelectedValue.ToString();
+            sheetName = cboSheet.Text;
+
+
+            fileExt = Path.GetExtension(filePath);//get the file extension
+            if (fileExt.CompareTo(".xls") == 0 || fileExt.CompareTo(".xlsx") == 0)
+            {
+                try
+                {
+                    
+                    DataTable LocalDTExcel = new DataTable();
+                    LocalDTExcel = ReadExcel(filePath, fileExt, sheetName);//read excel file
+                    dataGridView1.Visible = true;
+                    dataGridView1.DataSource = LocalDTExcel;
+                    dataGridView1.Refresh();
+                    dtInsert = LocalDTExcel;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please choose .xls or .xlsx file only.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);//custom messageBox to show error
+            }
+
         }
     }
 }

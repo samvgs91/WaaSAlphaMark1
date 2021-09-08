@@ -5,19 +5,24 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace WaaSAlphaMark1
 {
     class DBManager
     {
 
-        public static SqlConnection sqlCon;
+        static SqlConnection sqlCon;
+        static String StrCon;
+
         static DBManager()
         {
-            sqlCon = new SqlConnection("Data Source=dccsrveu2taller03.database.windows.net;Initial Catalog=dccadbeu2taller03;Persist Security Info=True;User ID=adminusr;Password=@psstaller01");
+            StrCon = ConfigurationManager.AppSettings.Get("sqlStrCon");
+            sqlCon = new SqlConnection(StrCon);
         }
 
-        public String GetBlobId(String fileName, String userId)
+        public static String GetBlobId(String fileName, String userId)
         {
             DataTable dtBlogTable = new DataTable();
 
@@ -37,9 +42,10 @@ namespace WaaSAlphaMark1
         }
 
 
-        public String GetXMLJson(String TableId, String UserId)
+        public static String GetXMLJson(String TableId, String UserId, String Type)
         {
             DataTable dtBlogTable = new DataTable();
+            var XMLJson = String.Empty;
 
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_GET_MODEL_SCRIPT]", sqlCon);
@@ -51,9 +57,22 @@ namespace WaaSAlphaMark1
             da.SelectCommand = cmd;
             da.Fill(dtBlogTable);
             sqlCon.Close();
-            String blobId = dtBlogTable.Rows[0].Field<Guid>("ModelCreationUptadeScript").ToString();
+            
+            switch(Type)
+            {
+                case "Create":
+                    XMLJson = dtBlogTable.Rows[0].Field<String>("ModelCreationUptadeScript").ToString();
+                    break;
+                case "Process":
+                    XMLJson = dtBlogTable.Rows[0].Field<String>("ModelProcessScript").ToString();
+                    break;
+                case "Drop":
+                    XMLJson = dtBlogTable.Rows[0].Field<String>("ModelDropScript").ToString();
+                    break;
+            }
+           
 
-            return blobId;
+            return XMLJson;
         }
 
     }

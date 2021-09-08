@@ -41,17 +41,21 @@ namespace WaaSAlphaMark1
             this.btnEliminarArchivo = new System.Windows.Forms.Button();
             this.btnModelCreateUpdate = new System.Windows.Forms.Button();
             this.btnModelProcess = new System.Windows.Forms.Button();
+            this.txtFileName = new System.Windows.Forms.TextBox();
+            this.lblFileName = new System.Windows.Forms.Label();
+            this.cboSheet = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
             this.SuspendLayout();
             // 
             // btnChoose
             // 
-            this.btnChoose.Location = new System.Drawing.Point(31, 31);
+            this.btnChoose.Location = new System.Drawing.Point(370, 36);
             this.btnChoose.Name = "btnChoose";
-            this.btnChoose.Size = new System.Drawing.Size(123, 23);
+            this.btnChoose.Size = new System.Drawing.Size(56, 20);
             this.btnChoose.TabIndex = 1;
-            this.btnChoose.Text = "Choose and Read File";
+            this.btnChoose.Text = "...";
             this.btnChoose.UseVisualStyleBackColor = true;
             this.btnChoose.Click += new System.EventHandler(this.btnChoose_Click);
             // 
@@ -98,9 +102,9 @@ namespace WaaSAlphaMark1
             // 
             // btnLoadMetadata
             // 
-            this.btnLoadMetadata.Location = new System.Drawing.Point(160, 31);
+            this.btnLoadMetadata.Location = new System.Drawing.Point(441, 31);
             this.btnLoadMetadata.Name = "btnLoadMetadata";
-            this.btnLoadMetadata.Size = new System.Drawing.Size(115, 23);
+            this.btnLoadMetadata.Size = new System.Drawing.Size(115, 30);
             this.btnLoadMetadata.TabIndex = 7;
             this.btnLoadMetadata.Text = "Cargar Metada";
             this.btnLoadMetadata.UseVisualStyleBackColor = true;
@@ -110,7 +114,7 @@ namespace WaaSAlphaMark1
             // 
             this.txtTableName.Location = new System.Drawing.Point(102, 97);
             this.txtTableName.Name = "txtTableName";
-            this.txtTableName.Size = new System.Drawing.Size(251, 20);
+            this.txtTableName.Size = new System.Drawing.Size(262, 20);
             this.txtTableName.TabIndex = 8;
             // 
             // label3
@@ -162,11 +166,50 @@ namespace WaaSAlphaMark1
             this.btnModelProcess.UseVisualStyleBackColor = true;
             this.btnModelProcess.Click += new System.EventHandler(this.btnModelProcess_Click);
             // 
+            // txtFileName
+            // 
+            this.txtFileName.Location = new System.Drawing.Point(102, 36);
+            this.txtFileName.Name = "txtFileName";
+            this.txtFileName.Size = new System.Drawing.Size(262, 20);
+            this.txtFileName.TabIndex = 14;
+            // 
+            // lblFileName
+            // 
+            this.lblFileName.AutoSize = true;
+            this.lblFileName.Location = new System.Drawing.Point(31, 39);
+            this.lblFileName.Name = "lblFileName";
+            this.lblFileName.Size = new System.Drawing.Size(57, 13);
+            this.lblFileName.TabIndex = 15;
+            this.lblFileName.Text = "File Name:";
+            // 
+            // cboSheet
+            // 
+            this.cboSheet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSheet.FormattingEnabled = true;
+            this.cboSheet.Location = new System.Drawing.Point(102, 65);
+            this.cboSheet.Name = "cboSheet";
+            this.cboSheet.Size = new System.Drawing.Size(92, 21);
+            this.cboSheet.TabIndex = 16;
+            this.cboSheet.SelectionChangeCommitted += new System.EventHandler(this.cboSheet_SelectionChangeCommitted);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(31, 73);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Sheets";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1107, 516);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cboSheet);
+            this.Controls.Add(this.lblFileName);
+            this.Controls.Add(this.txtFileName);
             this.Controls.Add(this.btnModelProcess);
             this.Controls.Add(this.btnModelCreateUpdate);
             this.Controls.Add(this.btnEliminarArchivo);
@@ -202,6 +245,10 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Button btnEliminarArchivo;
         private System.Windows.Forms.Button btnModelCreateUpdate;
         private System.Windows.Forms.Button btnModelProcess;
+        private System.Windows.Forms.TextBox txtFileName;
+        private System.Windows.Forms.Label lblFileName;
+        private System.Windows.Forms.ComboBox cboSheet;
+        private System.Windows.Forms.Label label4;
     }
 }
 

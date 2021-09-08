@@ -21,7 +21,7 @@ namespace WaaSAlphaMark1
     public partial class FirstViewForm : Form {
 
         String userId = "abcdeid";
-        SqlConnection sqlCon = new SqlConnection("Data Source=dccsrveu2taller03.database.windows.net;Initial Catalog=dccadbeu2taller03;Persist Security Info=True;User ID=adminusr;Password=@psstaller01");
+        SqlConnection sqlConn = new SqlConnection("Data Source=dccsrveu2taller03.database.windows.net;Initial Catalog=dccadbeu2taller03;Persist Security Info=True;User ID=adminusr;Password=@psstaller01");
         DataSet dsTableList = new DataSet("TableList");
 
         string tenantID = "aa0fda5b-fa1f-4585-a8e7-3b8dfc42312e";
@@ -70,8 +70,8 @@ namespace WaaSAlphaMark1
             DataTable dtTableList = new DataTable();
 
 
-            sqlCon.Open();
-            SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_GET_TABLES]", sqlCon);
+            sqlConn.Open();
+            SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_GET_TABLES]", sqlConn);
             cmd.Parameters.AddWithValue("@UserId", userId); // passing Datatable 
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -79,7 +79,7 @@ namespace WaaSAlphaMark1
             da.SelectCommand = cmd;
             da.Fill(dtTableList);
 
-            sqlCon.Close();
+            sqlConn.Close();
             dgvWarehouseTableList.Visible = true;
             dgvWarehouseTableList.DataSource = dtTableList;
             dgvWarehouseTableList.ReadOnly = true;
@@ -102,13 +102,13 @@ namespace WaaSAlphaMark1
 
         private void DropTable(String TableName)
         {
-            sqlCon.Open();
-            SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_DROP_TABLE_CONF]", sqlCon);
+            sqlConn.Open();
+            SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_DROP_TABLE_CONF]", sqlConn);
             cmd.Parameters.AddWithValue("@TableName", TableName); // passing Datatable 
             cmd.Parameters.AddWithValue("@UserId", this.userId); // passing Datatable 
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
-            sqlCon.Close();
+            sqlConn.Close();
 
         }
 

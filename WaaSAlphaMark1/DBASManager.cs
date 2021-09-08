@@ -11,10 +11,10 @@ namespace WaaSAlphaMark1
     class DBASManager
     {
 
-        public static AdomdConnection connection;
-        public static String connectionString;
-        public static String serverName;
-        public static String token;
+         static AdomdConnection connection;
+         static String connectionString;
+         static String serverName;
+         static String token;
         static DBASManager()
         {
             //await GetDataFromAzureAnalysisService();
@@ -22,7 +22,7 @@ namespace WaaSAlphaMark1
             serverName = "asazure://aspaaseastus2.asazure.windows.net/aasasrvpocea201";
 
         }
-        private static async Task ExecuteXMLAOnAzureAnalysisService(String xmlJson)
+        public static async Task ExecuteXMLAOnAzureAnalysisService(String xmlJson)
         {
             //Grab the token
             //Get servername from Azure Analysis Service (Overview) resource 
