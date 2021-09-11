@@ -18,7 +18,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace WaaSAlphaMark1
 {
-    public partial class FirstViewForm : Form {
+    public partial class ViewWarehouseForm : Form {
 
         String userId = "abcdeid";
         SqlConnection sqlConn = new SqlConnection("Data Source=dccsrveu2taller03.database.windows.net;Initial Catalog=dccadbeu2taller03;Persist Security Info=True;User ID=adminusr;Password=@psstaller01");
@@ -31,7 +31,7 @@ namespace WaaSAlphaMark1
         string resourceGroup = "gr-waas-poc-ea2-01";
         string dataFactoryName = "adfpocd01";
 
-        public FirstViewForm()
+        public ViewWarehouseForm()
         {
             InitializeComponent();
             //this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseFirstViewForm);
@@ -42,14 +42,14 @@ namespace WaaSAlphaMark1
         {
             //this.Close();
             this.Hide();
-            (new Form1()).Show();
+            (new ViewTableForm()).Show();
             
         }
 
         private void EditTable(String tableId)
         {
             this.Hide();
-            Form1 frm = new Form1("EDIT", tableId, this);
+            ViewTableForm frm = new ViewTableForm("EDIT", tableId, this);
             frm.Show();
         }
 

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Data.SqlClient;
-using System.Configuration;
 using System.Data.OleDb;
 
 using Microsoft.Azure.Storage;
@@ -28,11 +27,11 @@ namespace WaaSAlphaMark1
 
 
 
-    public partial class Form1 : Form
+    public partial class ViewTableForm : Form
     {
 
-        private FirstViewForm CallingForm = null;
-        public Form1(String _param, String _tableId,FirstViewForm callingForm) : this()
+        private ViewWarehouseForm CallingForm = null;
+        public ViewTableForm(String _param, String _tableId,ViewWarehouseForm callingForm) : this()
         {
             this.CallingForm = callingForm;
           
@@ -76,7 +75,7 @@ namespace WaaSAlphaMark1
         DataTable dtexcel = new DataTable();
         DataTable dt = new DataTable("Metadata");
 
-        public Form1()
+        public ViewTableForm()
         {
             InitializeComponent();
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -86,7 +85,7 @@ namespace WaaSAlphaMark1
         {
             if (this.CallingForm != null)
                 this.CallingForm.Close();
-            (new FirstViewForm()).Show();
+            (new ViewWarehouseForm()).Show();
         }
 
         private void FillDataFromTable(String tableId)
@@ -192,6 +191,7 @@ namespace WaaSAlphaMark1
                         DatasetBlobInsert(userId, tableName, storageName, containerName, fileName);
                         FillDataFromTable(tableName);
                         //LaunchADFProcess();
+                        txtFileName.Enabled = false;
 
                     }
                     catch (Exception ex)
@@ -336,12 +336,13 @@ namespace WaaSAlphaMark1
             sqlCon.Close();
         }
 
-        private void GenerateScripts(String userId, String tableName)
+        private void GenerateScripts(String userId, String tableName, String sheetName)
         {
             sqlCon.Open();
             SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_GENERATE_SCRIPTS]", sqlCon);
             cmd.Parameters.AddWithValue("@TableName", tableName); // passing Datatable 
             cmd.Parameters.AddWithValue("@UserId", userId); // passing Datatable 
+            cmd.Parameters.AddWithValue("@SheetName", sheetName);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.ExecuteNonQuery();
             sqlCon.Close();
@@ -525,25 +526,31 @@ namespace WaaSAlphaMark1
 
             if (dtInsert.Rows.Count > 0 && txtTableName.Text.Length>0)
             {
+
+                string localSheetName = cboSheet.Text;
                 tableName = txtTableName.Text;
                 dtEdited = dataGridView1.DataSource as DataTable;
                 DatasetInsert(dtEdited,userId, tableName);
-                GenerateScripts(userId, tableName);
+                GenerateScripts(userId, tableName, localSheetName);
                 DeployTable(userId, tableName);
-                UploadFileByName(filePath, fileName);
-                DatasetBlobInsert(userId, tableName, storageName, containerName, fileName);
-
-                //userId, userTableName, storageName, blobPath, fileName
-                //LoadFileIntoStorage(userId, tableName);
-
-
-                //txtTableName.Text = "";
-                //dataGridView1.DataSource = null;
-                //dataGridView1.Refresh();
+                
+                //DatasetBlobInsert(userId, tableName, storageName, containerName, fileName);
+                int inserted = DBManager.InsertBlobRecord(userId, tableName, storageName, containerName, fileName);
 
                 FillDataFromTable(tableName);
 
-                MessageBox.Show("Table Created", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);//custom messageBox to show error
+
+                if (inserted == 0)
+                {
+                    MessageBox.Show("That file was already process in this workspace", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    UploadFileByName(filePath, fileName);
+                    MessageBox.Show("Table Created", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);//custom messageBox to show error
+                }
+
+
             }
             else
             {

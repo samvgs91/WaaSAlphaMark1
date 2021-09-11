@@ -1,7 +1,7 @@
 ﻿
 namespace WaaSAlphaMark1
 {
-    partial class Form1
+    partial class ViewTableForm
     {
         /// <summary>
         /// Variable del diseñador necesaria.

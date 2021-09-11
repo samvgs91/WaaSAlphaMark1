@@ -41,6 +41,24 @@ namespace WaaSAlphaMark1
             return blobId;
         }
 
+        public static int InsertBlobRecord(String userId, String tableName, String storageName, String containerName, String fileName)
+        {
+
+            sqlCon.Open();
+            SqlCommand cmd = new SqlCommand("[WaaS].[USP_WAAS_BLOBPATH_INSERT]", sqlCon);
+            cmd.Parameters.AddWithValue("@UserId", userId); // passing UserIde 
+            cmd.Parameters.AddWithValue("@UserTableName", tableName); // passing UserTableName 
+            cmd.Parameters.AddWithValue("@StorageAccount", storageName); // passing StorageAccountName 
+            cmd.Parameters.AddWithValue("@Path", containerName); // passing Path
+            cmd.Parameters.AddWithValue("@FileName", fileName); // passing fileName
+            cmd.CommandType = CommandType.StoredProcedure;
+            var returnParameter = cmd.Parameters.Add("@ReturnVal", SqlDbType.Int);
+            returnParameter.Direction = ParameterDirection.ReturnValue;
+            cmd.ExecuteNonQuery();
+            var result = returnParameter.Value;
+            sqlCon.Close();
+            return (int)result;
+        }
 
         public static String GetXMLJson(String TableId, String UserId, String Type)
         {

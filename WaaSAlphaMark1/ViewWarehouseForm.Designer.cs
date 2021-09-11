@@ -1,7 +1,7 @@
 ﻿
 namespace WaaSAlphaMark1
 {
-    partial class FirstViewForm
+    partial class ViewWarehouseForm
     {
         /// <summary>
         /// Required designer variable.
