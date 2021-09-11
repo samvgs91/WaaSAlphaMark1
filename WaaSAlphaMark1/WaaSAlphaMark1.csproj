@@ -39,6 +39,9 @@
     <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=5.15.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.Sharp.5.15.3\lib\net472\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AnalysisServices.AdomdClient, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Unofficial.Microsoft.AnalysisServices.AdomdClient.13.0.4001\lib\net40\Microsoft.AnalysisServices.AdomdClient.dll</HintPath>
     </Reference>
@@ -175,6 +178,9 @@
     <Compile Include="DBASManager.cs" />
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main Portal.resx">
+      <DependentUpon>Main Portal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewWarehouseForm.resx">
       <DependentUpon>ViewWarehouseForm.cs</DependentUpon>
