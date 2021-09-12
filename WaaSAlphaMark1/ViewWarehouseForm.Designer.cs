@@ -42,6 +42,7 @@ namespace WaaSAlphaMark1
             // 
             // btnCreateTable
             // 
+            this.btnCreateTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateTable.Location = new System.Drawing.Point(518, 89);
             this.btnCreateTable.Name = "btnCreateTable";
             this.btnCreateTable.Size = new System.Drawing.Size(121, 53);
@@ -56,6 +57,7 @@ namespace WaaSAlphaMark1
             // 
             // btnConnect
             // 
+            this.btnConnect.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnConnect.Location = new System.Drawing.Point(518, 160);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(121, 58);
@@ -65,6 +67,8 @@ namespace WaaSAlphaMark1
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(37, 63);
             this.label3.Name = "label3";
@@ -80,12 +84,13 @@ namespace WaaSAlphaMark1
             this.dgvWarehouseTableList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvWarehouseTableList.Location = new System.Drawing.Point(40, 89);
             this.dgvWarehouseTableList.Name = "dgvWarehouseTableList";
-            this.dgvWarehouseTableList.Size = new System.Drawing.Size(453, 235);
+            this.dgvWarehouseTableList.Size = new System.Drawing.Size(411, 235);
             this.dgvWarehouseTableList.TabIndex = 11;
             this.dgvWarehouseTableList.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvWarehouseTableList_CellContentDoubleClick);
             // 
             // btnDropTable
             // 
+            this.btnDropTable.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnDropTable.Location = new System.Drawing.Point(518, 235);
             this.btnDropTable.Name = "btnDropTable";
             this.btnDropTable.Size = new System.Drawing.Size(121, 53);
@@ -94,17 +99,17 @@ namespace WaaSAlphaMark1
             this.btnDropTable.UseVisualStyleBackColor = true;
             this.btnDropTable.Click += new System.EventHandler(this.btnDropTable_Click);
             // 
-            // FirstViewForm
+            // ViewWarehouseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(790, 450);
             this.Controls.Add(this.btnDropTable);
             this.Controls.Add(this.dgvWarehouseTableList);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.btnCreateTable);
-            this.Name = "FirstViewForm";
+            this.Name = "ViewWarehouseForm";
             this.Text = "FirstViewForm";
             ((System.ComponentModel.ISupportInitialize)(this.uSPWAASGETTABLESBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWarehouseTableList)).EndInit();
