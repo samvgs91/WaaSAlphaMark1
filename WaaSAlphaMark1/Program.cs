@@ -18,8 +18,8 @@ namespace WaaSAlphaMark1
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
             //Application.Run(new ViewWarehouseForm());
-            //Application.Run(new Login());
-            Application.Run(new Main_Portal());
+            Application.Run(new Login());
+            //Application.Run(new Main_Portal());
         }
     }
 }

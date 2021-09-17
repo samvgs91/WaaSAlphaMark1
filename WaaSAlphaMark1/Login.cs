@@ -81,5 +81,31 @@ namespace WaaSAlphaMark1
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
+
+        private void lnklblCreateAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CreateUser createUser = new CreateUser();
+            createUser.Show();
+            createUser.FormClosed += ReturnFromCreate;
+            this.Hide();
+        }
+
+        private void pboxClose2_Click(object sender, EventArgs e)
+        {
+   
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ReturnFromCreate(object sender, FormClosedEventArgs e)
+        {
+            txtUser.Clear();
+            txtPassword.Clear();
+            this.Show();
+            txtUser.Focus();
+        }
     }
 }
