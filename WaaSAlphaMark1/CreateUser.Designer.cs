@@ -43,6 +43,7 @@ namespace WaaSAlphaMark1
             this.label2 = new System.Windows.Forms.Label();
             this.pboxMinimize = new System.Windows.Forms.PictureBox();
             this.pboxClose = new System.Windows.Forms.PictureBox();
+            this.lblErrorMessage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.pnlLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxMinimize)).BeginInit();
@@ -78,12 +79,13 @@ namespace WaaSAlphaMark1
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.btnSave.Location = new System.Drawing.Point(345, 238);
+            this.btnSave.Location = new System.Drawing.Point(342, 253);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(348, 40);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "SAVE";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtEmail
             // 
@@ -203,12 +205,26 @@ namespace WaaSAlphaMark1
             this.pboxClose.TabStop = false;
             this.pboxClose.Click += new System.EventHandler(this.pboxClose_Click);
             // 
+            // lblErrorMessage
+            // 
+            this.lblErrorMessage.AutoSize = true;
+            this.lblErrorMessage.Font = new System.Drawing.Font("Franklin Gothic Demi", 10F);
+            this.lblErrorMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(86)))), ((int)(((byte)(86)))));
+            this.lblErrorMessage.Location = new System.Drawing.Point(463, 219);
+            this.lblErrorMessage.Name = "lblErrorMessage";
+            this.lblErrorMessage.Size = new System.Drawing.Size(99, 18);
+            this.lblErrorMessage.TabIndex = 23;
+            this.lblErrorMessage.Text = "Error Message";
+            this.lblErrorMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblErrorMessage.Visible = false;
+            // 
             // CreateUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(179)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(780, 330);
+            this.Controls.Add(this.lblErrorMessage);
             this.Controls.Add(this.pboxMinimize);
             this.Controls.Add(this.pboxClose);
             this.Controls.Add(this.btnSave);
@@ -249,5 +265,6 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pboxMinimize;
         private System.Windows.Forms.PictureBox pboxClose;
+        private System.Windows.Forms.Label lblErrorMessage;
     }
 }

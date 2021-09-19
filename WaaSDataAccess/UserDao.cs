@@ -8,9 +8,9 @@ using System.Data;
 
 namespace WaaSDataAccess
 {
-    class UserDao:DBConnector
+    public class UserDao:DBConnector
     {
-        public bool CreateUser(String UserName, String Email, String Password)
+        public bool CreateUser(string UserName, string Email, string Password)
         {
             using ( var connection = GetConnection())
             {
@@ -19,7 +19,7 @@ namespace WaaSDataAccess
                 {
                     command.Connection = connection;
                     command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "[WaaS].[USP_WAAS_GET_BLOBID_BY_FILENAME]";
+                    command.CommandText = "[WaaS].[USP_WAAS_INS_USER]";
 
                     command.Parameters.AddWithValue("@UserName", UserName);
                     command.Parameters.AddWithValue("@Email", Email);
@@ -38,7 +38,7 @@ namespace WaaSDataAccess
 
         }
 
-        public bool Login(String UserNameOrEmail, String Password)
+        public bool Login(string UserNameOrEmail, string Password)
         {
             using (var connection = GetConnection())
             {

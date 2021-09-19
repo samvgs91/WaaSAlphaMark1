@@ -36,11 +36,12 @@ namespace WaaSAlphaMark1
             this.label2 = new System.Windows.Forms.Label();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSignIn = new System.Windows.Forms.Button();
             this.pboxClose = new System.Windows.Forms.PictureBox();
             this.pboxMinimize = new System.Windows.Forms.PictureBox();
             this.lnklblCreateAccount = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.lblErrorMessage = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxClose)).BeginInit();
@@ -116,21 +117,22 @@ namespace WaaSAlphaMark1
             this.txtPassword.Enter += new System.EventHandler(this.txtPassword_Enter);
             this.txtPassword.Leave += new System.EventHandler(this.txtPassword_Leave);
             // 
-            // button1
+            // btnSignIn
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(194)))), ((int)(((byte)(115)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(194)))), ((int)(((byte)(101)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(106)))), ((int)(((byte)(50)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.button1.Location = new System.Drawing.Point(352, 214);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(348, 40);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "SIGN IN";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnSignIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(194)))), ((int)(((byte)(115)))));
+            this.btnSignIn.FlatAppearance.BorderSize = 0;
+            this.btnSignIn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(194)))), ((int)(((byte)(101)))));
+            this.btnSignIn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(106)))), ((int)(((byte)(50)))));
+            this.btnSignIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSignIn.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
+            this.btnSignIn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.btnSignIn.Location = new System.Drawing.Point(352, 214);
+            this.btnSignIn.Name = "btnSignIn";
+            this.btnSignIn.Size = new System.Drawing.Size(348, 40);
+            this.btnSignIn.TabIndex = 3;
+            this.btnSignIn.Text = "SIGN IN";
+            this.btnSignIn.UseVisualStyleBackColor = false;
+            this.btnSignIn.Click += new System.EventHandler(this.btnSignIn_Click);
             // 
             // pboxClose
             // 
@@ -179,17 +181,30 @@ namespace WaaSAlphaMark1
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Forgot Password";
             // 
+            // lblErrorMessage
+            // 
+            this.lblErrorMessage.AutoSize = true;
+            this.lblErrorMessage.Font = new System.Drawing.Font("Franklin Gothic Demi", 10F);
+            this.lblErrorMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(86)))), ((int)(((byte)(86)))));
+            this.lblErrorMessage.Location = new System.Drawing.Point(470, 180);
+            this.lblErrorMessage.Name = "lblErrorMessage";
+            this.lblErrorMessage.Size = new System.Drawing.Size(99, 18);
+            this.lblErrorMessage.TabIndex = 24;
+            this.lblErrorMessage.Text = "Error Message";
+            this.lblErrorMessage.Visible = false;
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(179)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(780, 330);
+            this.Controls.Add(this.lblErrorMessage);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.lnklblCreateAccount);
             this.Controls.Add(this.pboxMinimize);
             this.Controls.Add(this.pboxClose);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSignIn);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.label2);
@@ -217,11 +232,12 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSignIn;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pboxClose;
         private System.Windows.Forms.PictureBox pboxMinimize;
         private System.Windows.Forms.LinkLabel lnklblCreateAccount;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label lblErrorMessage;
     }
 }

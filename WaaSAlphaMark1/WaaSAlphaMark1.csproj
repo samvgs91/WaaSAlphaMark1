@@ -220,5 +220,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WaaSDomain\WaaSDomain.csproj">
+      <Project>{7e5ff062-2dee-45a6-97a8-2524afdbdd91}</Project>
+      <Name>WaaSDomain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

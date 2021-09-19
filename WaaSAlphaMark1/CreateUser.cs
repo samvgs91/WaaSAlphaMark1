@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WaaSDomain;
 
 namespace WaaSAlphaMark1
 {
@@ -52,6 +53,7 @@ namespace WaaSAlphaMark1
                 txtUser.Text = "USERNAME";
                 txtUser.ForeColor = SystemColors.GrayText;
             }
+            lblErrorMessage.Visible = false;
         }
 
         private void txtEmail_Leave(object sender, EventArgs e)
@@ -61,6 +63,7 @@ namespace WaaSAlphaMark1
                 txtEmail.Text = "EMAIL";
                 txtEmail.ForeColor = SystemColors.GrayText;
             }
+            lblErrorMessage.Visible = false;
         }
 
         private void txtPassword_Leave(object sender, EventArgs e)
@@ -71,6 +74,7 @@ namespace WaaSAlphaMark1
                 txtPassword.ForeColor = SystemColors.GrayText;
                 txtPassword.UseSystemPasswordChar = false;
             }
+            lblErrorMessage.Visible = false;
         }
 
         private void txtRePassword_Enter(object sender, EventArgs e)
@@ -91,6 +95,7 @@ namespace WaaSAlphaMark1
                 txtRePassword.ForeColor = SystemColors.GrayText;
                 txtRePassword.UseSystemPasswordChar = false;
             }
+            lblErrorMessage.Visible = false;
         }
 
         private void pboxClose_Click(object sender, EventArgs e)
@@ -102,5 +107,37 @@ namespace WaaSAlphaMark1
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            bool validatidation = ValidateInputData();
+
+            if (validatidation)
+            {
+                UserModel userModel = new UserModel();
+                userModel.CreateUser(txtUser.Text, txtEmail.Text, txtPassword.Text);
+                MessageBox.Show("Great! Now you can sign in");
+                this.Close();
+            }
+        }
+
+        private bool ValidateInputData()
+        {
+            bool InputDataValidation = true;
+
+            if (txtPassword.Text != txtRePassword.Text) { InputDataValidation = false; MsgError("Must enter same Passwords"); }
+            if (txtRePassword.Text == "RE-ENTER  PASSWORD") { InputDataValidation = false; MsgError("Enter the Password again"); }
+            if (txtPassword.Text == "PASSWORD") { InputDataValidation = false; MsgError("Enter a Password"); }
+            if (txtEmail.Text == "EMAIL") { InputDataValidation = false; MsgError("Enter a Email"); }
+            if (txtUser.Text == "USERNAME") { InputDataValidation = false; MsgError("Enter a UserName"); }
+
+            return InputDataValidation;
+        }
+
+        private void MsgError(string msg)
+            {
+                lblErrorMessage.Text = msg;
+                lblErrorMessage.Visible = true;
+            }
     }
 }

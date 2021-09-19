@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using WaaSDomain;
 
 namespace WaaSAlphaMark1
 {
@@ -38,6 +39,7 @@ namespace WaaSAlphaMark1
                 txtUser.Text = "USERNAME or EMAIL";
                 txtUser.ForeColor = SystemColors.GrayText;
             }
+            lblErrorMessage.Visible = false;
         }
 
         private void txtPassword_Enter(object sender, EventArgs e)
@@ -58,6 +60,7 @@ namespace WaaSAlphaMark1
                 txtPassword.ForeColor = SystemColors.GrayText;
                 txtPassword.UseSystemPasswordChar = false;
             }
+            lblErrorMessage.Visible = false;
         }
 
         private void pboxClose_Click(object sender, EventArgs e)
@@ -106,6 +109,52 @@ namespace WaaSAlphaMark1
             txtPassword.Clear();
             this.Show();
             txtUser.Focus();
+        }
+
+        private void btnSignIn_Click(object sender, EventArgs e)
+        {
+          
+            if(ValidateInput())
+            {
+                UserModel userModel = new UserModel();
+                bool validateLogin = userModel.LoginUser(txtUser.Text, txtPassword.Text);
+                if (validateLogin)
+                {
+                    Main_Portal mainPortal = new Main_Portal();
+                    mainPortal.Show();
+                    mainPortal.FormClosed += ReturnFromCreate;
+                    this.Hide();
+                }
+            }
+
+        }
+
+        private bool ValidateInput()
+        {
+            bool validation = true;
+
+            if (txtPassword.Text == "PASSWORD")
+            {
+                lblErrorMessage.Visible = true;
+                validation = false;
+                txtPassword.Focus();
+                MsgError("Must enter a password");
+            }
+
+            if (txtUser.Text == "USERNAME or EMAIL")
+            {
+                lblErrorMessage.Visible = true;
+                validation = false;
+                txtUser.Focus();
+                MsgError("Must Enter UserName or Email");   
+            }
+            return validation;
+        }
+
+        private void MsgError(string msg)
+        {
+            lblErrorMessage.Text = msg;
+            lblErrorMessage.Visible = true;
         }
     }
 }
