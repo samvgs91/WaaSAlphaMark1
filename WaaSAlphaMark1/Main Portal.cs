@@ -168,7 +168,7 @@ namespace WaaSAlphaMark1
 
         private void pboxClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void pboxMinimize_Click(object sender, EventArgs e)
