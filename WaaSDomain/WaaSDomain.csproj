@@ -43,12 +43,16 @@
   <ItemGroup>
     <Compile Include="UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkspaceModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WaaSDataAccess\WaaSDataAccess.csproj">
       <Project>{4f8deebf-99d7-48ca-9fa5-b3d8ae173792}</Project>
       <Name>WaaSDataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

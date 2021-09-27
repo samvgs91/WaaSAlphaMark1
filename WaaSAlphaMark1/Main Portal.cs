@@ -109,7 +109,7 @@ namespace WaaSAlphaMark1
         private void ibtnWorkspace_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new ViewWarehouseForm());
+            OpenChildForm(new Workspace());
         }
 
         private void ibtnData_Click(object sender, EventArgs e)
@@ -182,6 +182,11 @@ namespace WaaSAlphaMark1
                 WindowState = FormWindowState.Maximized;
             else
                 WindowState = FormWindowState.Minimized;
+        }
+
+        private void ibtnNewFile_Click(object sender, EventArgs e)
+        {
+            //TODO
         }
     }
 }

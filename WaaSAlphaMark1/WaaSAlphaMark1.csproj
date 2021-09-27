@@ -167,6 +167,12 @@
     <Compile Include="Main Portal.Designer.cs">
       <DependentUpon>Main Portal.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewFile.Designer.cs">
+      <DependentUpon>NewFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewWarehouseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DBASManager.cs" />
+    <Compile Include="Workspace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Workspace.Designer.cs">
+      <DependentUpon>Workspace.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CreateUser.resx">
       <DependentUpon>CreateUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -190,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main Portal.resx">
       <DependentUpon>Main Portal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFile.resx">
+      <DependentUpon>NewFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewWarehouseForm.resx">
       <DependentUpon>ViewWarehouseForm.cs</DependentUpon>
@@ -205,7 +220,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Workspace.resx">
+      <DependentUpon>Workspace.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -225,6 +244,27 @@
       <Project>{7e5ff062-2dee-45a6-97a8-2524afdbdd91}</Project>
       <Name>WaaSDomain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SearchBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1814075_find_magnifier_magnifying glass_search_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addFileButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addFileButton1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addFileButton2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\addFileButton3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

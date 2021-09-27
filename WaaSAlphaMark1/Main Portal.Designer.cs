@@ -35,27 +35,26 @@ namespace WaaSAlphaMark1
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.ibtnConfiguration = new FontAwesome.Sharp.IconButton();
             this.ibtnReports = new FontAwesome.Sharp.IconButton();
-            this.ibtnModel = new FontAwesome.Sharp.IconButton();
             this.ibtnData = new FontAwesome.Sharp.IconButton();
             this.ibtnWorkspace = new FontAwesome.Sharp.IconButton();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.pnlTitleBar = new System.Windows.Forms.Panel();
-            this.ibtnHome = new FontAwesome.Sharp.IconPictureBox();
-            this.lblHome = new System.Windows.Forms.Label();
-            this.pnlShadow = new System.Windows.Forms.Panel();
-            this.pnlDesktop = new System.Windows.Forms.Panel();
+            this.pboxMaximize = new System.Windows.Forms.PictureBox();
             this.pboxMinimize = new System.Windows.Forms.PictureBox();
             this.pboxClose = new System.Windows.Forms.PictureBox();
-            this.pboxMaximize = new System.Windows.Forms.PictureBox();
+            this.lblHome = new System.Windows.Forms.Label();
+            this.ibtnHome = new FontAwesome.Sharp.IconPictureBox();
+            this.pnlShadow = new System.Windows.Forms.Panel();
+            this.pnlDesktop = new System.Windows.Forms.Panel();
             this.pnlLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLogo)).BeginInit();
             this.pnlMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.pnlTitleBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ibtnHome)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxMaximize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxClose)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxMaximize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ibtnHome)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlLogo
@@ -64,16 +63,16 @@ namespace WaaSAlphaMark1
             this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlLogo.Location = new System.Drawing.Point(0, 0);
             this.pnlLogo.Name = "pnlLogo";
-            this.pnlLogo.Size = new System.Drawing.Size(220, 150);
+            this.pnlLogo.Size = new System.Drawing.Size(220, 99);
             this.pnlLogo.TabIndex = 0;
             // 
             // pbxLogo
             // 
             this.pbxLogo.Image = ((System.Drawing.Image)(resources.GetObject("pbxLogo.Image")));
-            this.pbxLogo.Location = new System.Drawing.Point(0, -3);
+            this.pbxLogo.Location = new System.Drawing.Point(26, 0);
             this.pbxLogo.Name = "pbxLogo";
-            this.pbxLogo.Size = new System.Drawing.Size(220, 153);
-            this.pbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbxLogo.Size = new System.Drawing.Size(171, 99);
+            this.pbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxLogo.TabIndex = 2;
             this.pbxLogo.TabStop = false;
             this.pbxLogo.Click += new System.EventHandler(this.pbxLogo_Click);
@@ -83,7 +82,6 @@ namespace WaaSAlphaMark1
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
             this.pnlMenu.Controls.Add(this.ibtnConfiguration);
             this.pnlMenu.Controls.Add(this.ibtnReports);
-            this.pnlMenu.Controls.Add(this.ibtnModel);
             this.pnlMenu.Controls.Add(this.ibtnData);
             this.pnlMenu.Controls.Add(this.ibtnWorkspace);
             this.pnlMenu.Controls.Add(this.pnlLogo);
@@ -106,7 +104,7 @@ namespace WaaSAlphaMark1
             this.ibtnConfiguration.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibtnConfiguration.IconSize = 40;
             this.ibtnConfiguration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtnConfiguration.Location = new System.Drawing.Point(0, 390);
+            this.ibtnConfiguration.Location = new System.Drawing.Point(0, 279);
             this.ibtnConfiguration.Name = "ibtnConfiguration";
             this.ibtnConfiguration.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.ibtnConfiguration.Size = new System.Drawing.Size(220, 60);
@@ -129,7 +127,7 @@ namespace WaaSAlphaMark1
             this.ibtnReports.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibtnReports.IconSize = 40;
             this.ibtnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtnReports.Location = new System.Drawing.Point(0, 330);
+            this.ibtnReports.Location = new System.Drawing.Point(0, 219);
             this.ibtnReports.Name = "ibtnReports";
             this.ibtnReports.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.ibtnReports.Size = new System.Drawing.Size(220, 60);
@@ -139,29 +137,6 @@ namespace WaaSAlphaMark1
             this.ibtnReports.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ibtnReports.UseVisualStyleBackColor = true;
             this.ibtnReports.Click += new System.EventHandler(this.ibtnReports_Click);
-            // 
-            // ibtnModel
-            // 
-            this.ibtnModel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ibtnModel.FlatAppearance.BorderSize = 0;
-            this.ibtnModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibtnModel.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
-            this.ibtnModel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtnModel.IconChar = FontAwesome.Sharp.IconChar.Buromobelexperte;
-            this.ibtnModel.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtnModel.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibtnModel.IconSize = 40;
-            this.ibtnModel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtnModel.Location = new System.Drawing.Point(0, 270);
-            this.ibtnModel.Name = "ibtnModel";
-            this.ibtnModel.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.ibtnModel.Size = new System.Drawing.Size(220, 60);
-            this.ibtnModel.TabIndex = 4;
-            this.ibtnModel.Text = "Models";
-            this.ibtnModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtnModel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.ibtnModel.UseVisualStyleBackColor = true;
-            this.ibtnModel.Click += new System.EventHandler(this.ibtnModel_Click);
             // 
             // ibtnData
             // 
@@ -175,7 +150,7 @@ namespace WaaSAlphaMark1
             this.ibtnData.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibtnData.IconSize = 40;
             this.ibtnData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtnData.Location = new System.Drawing.Point(0, 210);
+            this.ibtnData.Location = new System.Drawing.Point(0, 159);
             this.ibtnData.Name = "ibtnData";
             this.ibtnData.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.ibtnData.Size = new System.Drawing.Size(220, 60);
@@ -198,7 +173,7 @@ namespace WaaSAlphaMark1
             this.ibtnWorkspace.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibtnWorkspace.IconSize = 40;
             this.ibtnWorkspace.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtnWorkspace.Location = new System.Drawing.Point(0, 150);
+            this.ibtnWorkspace.Location = new System.Drawing.Point(0, 99);
             this.ibtnWorkspace.Name = "ibtnWorkspace";
             this.ibtnWorkspace.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.ibtnWorkspace.Size = new System.Drawing.Size(220, 60);
@@ -229,48 +204,17 @@ namespace WaaSAlphaMark1
             this.pnlTitleBar.TabIndex = 2;
             this.pnlTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTitleBar_MouseDown);
             // 
-            // ibtnHome
+            // pboxMaximize
             // 
-            this.ibtnHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(179)))), ((int)(((byte)(64)))));
-            this.ibtnHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(33)))), ((int)(((byte)(12)))));
-            this.ibtnHome.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.ibtnHome.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(33)))), ((int)(((byte)(12)))));
-            this.ibtnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibtnHome.IconSize = 40;
-            this.ibtnHome.Location = new System.Drawing.Point(55, 28);
-            this.ibtnHome.Name = "ibtnHome";
-            this.ibtnHome.Size = new System.Drawing.Size(40, 40);
-            this.ibtnHome.TabIndex = 0;
-            this.ibtnHome.TabStop = false;
-            // 
-            // lblHome
-            // 
-            this.lblHome.AutoSize = true;
-            this.lblHome.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
-            this.lblHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(33)))), ((int)(((byte)(12)))));
-            this.lblHome.Location = new System.Drawing.Point(101, 37);
-            this.lblHome.Name = "lblHome";
-            this.lblHome.Size = new System.Drawing.Size(51, 21);
-            this.lblHome.TabIndex = 1;
-            this.lblHome.Text = "Home";
-            // 
-            // pnlShadow
-            // 
-            this.pnlShadow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(179)))), ((int)(((byte)(64)))));
-            this.pnlShadow.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlShadow.Location = new System.Drawing.Point(220, 90);
-            this.pnlShadow.Name = "pnlShadow";
-            this.pnlShadow.Size = new System.Drawing.Size(1120, 9);
-            this.pnlShadow.TabIndex = 3;
-            // 
-            // pnlDesktop
-            // 
-            this.pnlDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
-            this.pnlDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDesktop.Location = new System.Drawing.Point(220, 99);
-            this.pnlDesktop.Name = "pnlDesktop";
-            this.pnlDesktop.Size = new System.Drawing.Size(1120, 741);
-            this.pnlDesktop.TabIndex = 4;
+            this.pboxMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pboxMaximize.Image = ((System.Drawing.Image)(resources.GetObject("pboxMaximize.Image")));
+            this.pboxMaximize.Location = new System.Drawing.Point(1073, 12);
+            this.pboxMaximize.Name = "pboxMaximize";
+            this.pboxMaximize.Size = new System.Drawing.Size(15, 15);
+            this.pboxMaximize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pboxMaximize.TabIndex = 11;
+            this.pboxMaximize.TabStop = false;
+            this.pboxMaximize.Click += new System.EventHandler(this.pboxMaximize_Click);
             // 
             // pboxMinimize
             // 
@@ -296,17 +240,48 @@ namespace WaaSAlphaMark1
             this.pboxClose.TabStop = false;
             this.pboxClose.Click += new System.EventHandler(this.pboxClose_Click);
             // 
-            // pboxMaximize
+            // lblHome
             // 
-            this.pboxMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pboxMaximize.Image = ((System.Drawing.Image)(resources.GetObject("pboxMaximize.Image")));
-            this.pboxMaximize.Location = new System.Drawing.Point(1073, 12);
-            this.pboxMaximize.Name = "pboxMaximize";
-            this.pboxMaximize.Size = new System.Drawing.Size(15, 15);
-            this.pboxMaximize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pboxMaximize.TabIndex = 11;
-            this.pboxMaximize.TabStop = false;
-            this.pboxMaximize.Click += new System.EventHandler(this.pboxMaximize_Click);
+            this.lblHome.AutoSize = true;
+            this.lblHome.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
+            this.lblHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(33)))), ((int)(((byte)(12)))));
+            this.lblHome.Location = new System.Drawing.Point(101, 37);
+            this.lblHome.Name = "lblHome";
+            this.lblHome.Size = new System.Drawing.Size(51, 21);
+            this.lblHome.TabIndex = 1;
+            this.lblHome.Text = "Home";
+            // 
+            // ibtnHome
+            // 
+            this.ibtnHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(179)))), ((int)(((byte)(64)))));
+            this.ibtnHome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(33)))), ((int)(((byte)(12)))));
+            this.ibtnHome.IconChar = FontAwesome.Sharp.IconChar.Home;
+            this.ibtnHome.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(33)))), ((int)(((byte)(12)))));
+            this.ibtnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibtnHome.IconSize = 40;
+            this.ibtnHome.Location = new System.Drawing.Point(55, 28);
+            this.ibtnHome.Name = "ibtnHome";
+            this.ibtnHome.Size = new System.Drawing.Size(40, 40);
+            this.ibtnHome.TabIndex = 0;
+            this.ibtnHome.TabStop = false;
+            // 
+            // pnlShadow
+            // 
+            this.pnlShadow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(179)))), ((int)(((byte)(64)))));
+            this.pnlShadow.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlShadow.Location = new System.Drawing.Point(220, 90);
+            this.pnlShadow.Name = "pnlShadow";
+            this.pnlShadow.Size = new System.Drawing.Size(1120, 9);
+            this.pnlShadow.TabIndex = 3;
+            // 
+            // pnlDesktop
+            // 
+            this.pnlDesktop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.pnlDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDesktop.Location = new System.Drawing.Point(220, 99);
+            this.pnlDesktop.Name = "pnlDesktop";
+            this.pnlDesktop.Size = new System.Drawing.Size(1120, 741);
+            this.pnlDesktop.TabIndex = 4;
             // 
             // Main_Portal
             // 
@@ -318,6 +293,7 @@ namespace WaaSAlphaMark1
             this.Controls.Add(this.pnlTitleBar);
             this.Controls.Add(this.pnlMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MinimumSize = new System.Drawing.Size(1356, 879);
             this.Name = "Main_Portal";
             this.Text = "Main_Portal";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Main_Portal_MouseDown);
@@ -327,10 +303,10 @@ namespace WaaSAlphaMark1
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.pnlTitleBar.ResumeLayout(false);
             this.pnlTitleBar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ibtnHome)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxMaximize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxClose)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxMaximize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ibtnHome)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -342,10 +318,8 @@ namespace WaaSAlphaMark1
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private FontAwesome.Sharp.IconButton ibtnWorkspace;
         private FontAwesome.Sharp.IconButton ibtnData;
-        private FontAwesome.Sharp.IconButton ibtnModel;
         private FontAwesome.Sharp.IconButton ibtnConfiguration;
         private FontAwesome.Sharp.IconButton ibtnReports;
-        private System.Windows.Forms.PictureBox pbxLogo;
         private System.Windows.Forms.Panel pnlTitleBar;
         private FontAwesome.Sharp.IconPictureBox ibtnHome;
         private System.Windows.Forms.Label lblHome;
@@ -354,5 +328,6 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.PictureBox pboxMinimize;
         private System.Windows.Forms.PictureBox pboxClose;
         private System.Windows.Forms.PictureBox pboxMaximize;
+        private System.Windows.Forms.PictureBox pbxLogo;
     }
 }

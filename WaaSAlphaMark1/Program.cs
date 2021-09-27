@@ -19,6 +19,7 @@ namespace WaaSAlphaMark1
             //Application.Run(new Form1());
             //Application.Run(new ViewWarehouseForm());
             Application.Run(new Login());
+            //Application.Run(new NewFile());
             //Application.Run(new Main_Portal());
         }
     }
