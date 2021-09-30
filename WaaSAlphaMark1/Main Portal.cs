@@ -18,13 +18,15 @@ namespace WaaSAlphaMark1
         private IconButton currentBtn;
         private Panel leftBorderBtn;
         private Form currentChildForm;
+        private string UserId;
 
-        public Main_Portal()
+        public Main_Portal(string userId)
         {
             InitializeComponent();
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7,60);
             pnlMenu.Controls.Add(leftBorderBtn);
+            UserId = userId;
 
             //Form
             this.Text = string.Empty;
@@ -109,7 +111,7 @@ namespace WaaSAlphaMark1
         private void ibtnWorkspace_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new Workspace());
+            OpenChildForm(new Workspace(UserId));
         }
 
         private void ibtnData_Click(object sender, EventArgs e)

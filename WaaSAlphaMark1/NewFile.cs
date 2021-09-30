@@ -39,7 +39,7 @@ namespace WaaSAlphaMark1
                     try
                     {
                         WorkspaceModel workspaceModel = new WorkspaceModel();
-                        workspaceModel.AddFile(fileName, "abcId","TableDemoDW", filePath, fileSize.ToString());
+                        //workspaceModel.AddFile(fileName, "abcId","TableDemoDW", filePath, fileSize.ToString());
                         txtFileName.Text = filePath;
 
                         ////Upload the file and insert the record in the database

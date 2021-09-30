@@ -56,14 +56,25 @@ namespace WaaSDataAccess
                 
         }
 
-        public bool DeleteFile(string fileName, string destinyPath, string sourcePath, string container)
+        public bool DeleteFile(string fileName, string destinyPath, string subDestinyPath, string container)
         {
 
                 DataLakeServiceClient connection = GetConnection();
 
                 DataLakeFileSystemClient fileSystemClient = connection.GetFileSystemClient(container);
 
-                DataLakeDirectoryClient directoryClient = fileSystemClient.GetDirectoryClient(destinyPath);
+                DataLakeDirectoryClient directoryClient = null;
+
+                if (subDestinyPath != null)
+                {
+                    DataLakeDirectoryClient parentDirectoryClient = fileSystemClient.GetDirectoryClient(destinyPath);
+
+                    directoryClient = parentDirectoryClient.GetSubDirectoryClient(subDestinyPath);
+                }
+                else
+                {
+                    directoryClient = fileSystemClient.GetDirectoryClient(destinyPath);
+                }
 
                 directoryClient.DeleteFile(fileName);
 

@@ -118,9 +118,10 @@ namespace WaaSAlphaMark1
             {
                 UserModel userModel = new UserModel();
                 bool validateLogin = userModel.LoginUser(txtUser.Text, txtPassword.Text);
+                string userId = userModel.GetUserId(txtUser.Text, txtPassword.Text);
                 if (validateLogin)
                 {
-                    Main_Portal mainPortal = new Main_Portal();
+                    Main_Portal mainPortal = new Main_Portal(userId);
                     mainPortal.Show();
                     mainPortal.FormClosed += ReturnFromCreate;
                     this.Hide();

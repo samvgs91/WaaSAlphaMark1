@@ -244,6 +244,10 @@
       <Project>{7e5ff062-2dee-45a6-97a8-2524afdbdd91}</Project>
       <Name>WaaSDomain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WaaSEntities\WaaSEntities.csproj">
+      <Project>{ff019f91-85b1-49c0-ad16-0c0575670b40}</Project>
+      <Name>WaaSEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SearchBar.png" />

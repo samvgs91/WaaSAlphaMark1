@@ -29,6 +29,8 @@ namespace WaaSAlphaMark1
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.adomdCommand1 = new Microsoft.AnalysisServices.AdomdClient.AdomdCommand();
             this.pnlTopOptions = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -36,12 +38,12 @@ namespace WaaSAlphaMark1
             this.pboxSearchIcon = new System.Windows.Forms.PictureBox();
             this.pboxSearchBox = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ibtNewFile = new FontAwesome.Sharp.IconButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
             this.dgvWorkspace = new System.Windows.Forms.DataGridView();
-            this.ibtNewFile = new FontAwesome.Sharp.IconButton();
-            this.label4 = new System.Windows.Forms.Label();
             this.pnlTopOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchBox)).BeginInit();
@@ -90,8 +92,10 @@ namespace WaaSAlphaMark1
             this.txtSearchFiles.Location = new System.Drawing.Point(64, 41);
             this.txtSearchFiles.Name = "txtSearchFiles";
             this.txtSearchFiles.Size = new System.Drawing.Size(247, 16);
-            this.txtSearchFiles.TabIndex = 2;
+            this.txtSearchFiles.TabIndex = 0;
             this.txtSearchFiles.Text = "Search in Workspace";
+            this.txtSearchFiles.Enter += new System.EventHandler(this.txtSearchFiles_Enter);
+            this.txtSearchFiles.Leave += new System.EventHandler(this.txtSearchFiles_Leave);
             // 
             // pboxSearchIcon
             // 
@@ -129,6 +133,37 @@ namespace WaaSAlphaMark1
             this.panel1.Size = new System.Drawing.Size(1120, 640);
             this.panel1.TabIndex = 1;
             // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.Gray;
+            this.label4.Enabled = false;
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(0, 106);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(1120, 1);
+            this.label4.TabIndex = 4;
+            // 
+            // ibtNewFile
+            // 
+            this.ibtNewFile.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.ibtNewFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibtNewFile.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
+            this.ibtNewFile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.ibtNewFile.IconChar = FontAwesome.Sharp.IconChar.Plus;
+            this.ibtNewFile.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.ibtNewFile.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibtNewFile.IconSize = 30;
+            this.ibtNewFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibtNewFile.Location = new System.Drawing.Point(21, 9);
+            this.ibtNewFile.Name = "ibtNewFile";
+            this.ibtNewFile.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.ibtNewFile.Size = new System.Drawing.Size(120, 49);
+            this.ibtNewFile.TabIndex = 1;
+            this.ibtNewFile.Text = "New";
+            this.ibtNewFile.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ibtNewFile.UseVisualStyleBackColor = true;
+            this.ibtNewFile.Click += new System.EventHandler(this.ibtNewFile_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -164,44 +199,34 @@ namespace WaaSAlphaMark1
             // 
             // dgvWorkspace
             // 
+            this.dgvWorkspace.AllowUserToAddRows = false;
+            this.dgvWorkspace.AllowUserToDeleteRows = false;
             this.dgvWorkspace.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
             this.dgvWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvWorkspace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvWorkspace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvWorkspace.ColumnHeadersVisible = false;
-            this.dgvWorkspace.Location = new System.Drawing.Point(25, 110);
+            this.dgvWorkspace.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.dgvWorkspace.Location = new System.Drawing.Point(0, 110);
             this.dgvWorkspace.Name = "dgvWorkspace";
-            this.dgvWorkspace.Size = new System.Drawing.Size(1067, 435);
-            this.dgvWorkspace.TabIndex = 0;
-            // 
-            // ibtNewFile
-            // 
-            this.ibtNewFile.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibtNewFile.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
-            this.ibtNewFile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewFile.IconChar = FontAwesome.Sharp.IconChar.Plus;
-            this.ibtNewFile.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewFile.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibtNewFile.IconSize = 30;
-            this.ibtNewFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtNewFile.Location = new System.Drawing.Point(21, 9);
-            this.ibtNewFile.Name = "ibtNewFile";
-            this.ibtNewFile.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.ibtNewFile.Size = new System.Drawing.Size(120, 49);
-            this.ibtNewFile.TabIndex = 4;
-            this.ibtNewFile.Text = "New";
-            this.ibtNewFile.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.ibtNewFile.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.BackColor = System.Drawing.Color.Gray;
-            this.label4.Enabled = false;
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(0, 106);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(1120, 1);
-            this.label4.TabIndex = 4;
+            this.dgvWorkspace.ReadOnly = true;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvWorkspace.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvWorkspace.RowHeadersVisible = false;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Franklin Gothic Demi", 8.25F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(240)))), ((int)(((byte)(254)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
+            this.dgvWorkspace.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvWorkspace.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvWorkspace.Size = new System.Drawing.Size(1120, 440);
+            this.dgvWorkspace.TabIndex = 2;
             // 
             // Workspace
             // 

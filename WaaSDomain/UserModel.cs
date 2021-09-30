@@ -18,5 +18,10 @@ namespace WaaSDomain
         {
             return userDao.CreateUser(UserName, Email, Password);
         }
+
+        public string GetUserId(string UserNameOrEmail, string Password)
+        {
+            return userDao.GetId(UserNameOrEmail, Password);
+        }
     }
 }

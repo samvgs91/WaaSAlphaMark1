@@ -130,5 +130,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WaaSEntities\WaaSEntities.csproj">
+      <Project>{ff019f91-85b1-49c0-ad16-0c0575670b40}</Project>
+      <Name>WaaSEntities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

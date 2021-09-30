@@ -64,5 +64,33 @@ namespace WaaSDataAccess
             }
 
         }
+
+        public string GetId(string UserNameOrEmail, string Password)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "[WaaS].[USP_WAAS_GET_USERID]";
+
+                    command.Parameters.AddWithValue("@UserNameOrEmail", UserNameOrEmail);
+                    command.Parameters.AddWithValue("@Password", Password);
+
+                    SqlParameter rtrnValue = new SqlParameter("@UserId", SqlDbType.NVarChar,300);
+                    rtrnValue.Direction = ParameterDirection.Output;
+                    command.Parameters.Add(rtrnValue);
+
+
+                    command.ExecuteNonQuery();
+                    //string userId = (string)command.Parameters["@UserId"].Value;
+                    string userId = (string) rtrnValue.Value;
+
+                    return userId;
+                }
+            }
+        }
     }
 }
