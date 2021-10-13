@@ -13,19 +13,16 @@ using WaaSEntities;
 
 namespace WaaSAlphaMark1
 {
-    public partial class Workspace : Form
+    public partial class DataView : Form
     {
 
         private string UserId;
-        private int currentMouseOverRow;
 
-        public Workspace(string userId)
+        public DataView(string userId)
         {
             this.UserId = userId;
-            this.currentMouseOverRow = -1;
             InitializeComponent();
             FillWorkspaceFiles();
-
         }
 
         private void ibtNewFile_Click(object sender, EventArgs e)
@@ -105,58 +102,5 @@ namespace WaaSAlphaMark1
                 txtSearchFiles.ForeColor = System.Drawing.SystemColors.GrayText;
             }
         }
-
-        private void DisplayFileOptions(object sender, MouseEventArgs e)
-        {    
-            //TODO
-            if(e.Button == MouseButtons.Right)
-            {
-                ContextMenu m = new ContextMenu();
-                m.MenuItems.Add(new MenuItem("Delete",DeleteFileOnClick));
-                m.MenuItems.Add(new MenuItem("Create Dataset", MenuOnClick));
-                m.MenuItems.Add(new MenuItem("Download", MenuOnClick));
-
-                currentMouseOverRow = dgvWorkspace.HitTest(e.X, e.Y).RowIndex;
-
-                //if (currentMouseOverRow >= 0)
-                //{
-                //    m.MenuItems.Add(new MenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
-                //}
-
-                m.Show(dgvWorkspace, new Point(e.X, e.Y));
-               
-            }
-        }
-
-        private void dgvWorkspace_MouseClick(object sender, MouseEventArgs e)
-        {
-            DisplayFileOptions(sender, e);
-        }
-
-        private void DeleteFileOnClick(object sender, EventArgs args)
-        {
-            if (currentMouseOverRow > -1)
-            {
-                string fileId = dgvWorkspace.Rows[currentMouseOverRow].Cells[0].Value.ToString();
-                WorkspaceModel workspaceModel = new WorkspaceModel();
-                workspaceModel.DeleteFile(fileId);
-                FillWorkspaceFiles();
-            }
-        }
-
-        private void MenuOnClick(object sender, EventArgs args)
-        {
-            //TODO
-            MenuItem mi = (MenuItem)sender;
-            //MessageBox.Show(mi.Text);
-
-            if(currentMouseOverRow>0)
-            {
-                string fileId = dgvWorkspace.Rows[currentMouseOverRow].Cells[0].Value.ToString();
-                MessageBox.Show(fileId);
-            }
-        }
-
-
     }
 }

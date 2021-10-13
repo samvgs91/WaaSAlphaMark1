@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dataset.cs" />
+    <Compile Include="File.cs" />
+    <Compile Include="FileDataset.cs" />
     <Compile Include="FileWorkspace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

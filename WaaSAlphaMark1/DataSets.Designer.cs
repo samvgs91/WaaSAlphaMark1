@@ -1,7 +1,7 @@
 ﻿
 namespace WaaSAlphaMark1
 {
-    partial class Workspace
+    partial class DataSets
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,6 @@ namespace WaaSAlphaMark1
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.adomdCommand1 = new Microsoft.AnalysisServices.AdomdClient.AdomdCommand();
@@ -45,7 +44,6 @@ namespace WaaSAlphaMark1
             this.label1 = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
             this.dgvWorkspace = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pnlTopOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchBox)).BeginInit();
@@ -229,12 +227,6 @@ namespace WaaSAlphaMark1
             this.dgvWorkspace.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvWorkspace.Size = new System.Drawing.Size(1120, 440);
             this.dgvWorkspace.TabIndex = 2;
-            this.dgvWorkspace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvWorkspace_MouseClick);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // Workspace
             // 
@@ -272,6 +264,5 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label label3;
         private FontAwesome.Sharp.IconButton ibtNewFile;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

@@ -25,7 +25,7 @@ namespace WaaSDomain
 
 
             //   workspaceModel.AddFile(fileName, "abcId","TableDemoDW", filePath, "waas-data");
-            bool fileDaoBool = fileDao.InsertFile(userId, fileName, accountName, containerName, path, size);
+            bool fileDaoBool = fileDao.InsertWorkspaceFile(userId, fileName, accountName, containerName, path, size);
             bool fileStoBool = fileSto.AddFile(fileName, destinyPath, null, sourcePath, containerName);
 
             if (fileDaoBool && fileStoBool)
@@ -38,10 +38,10 @@ namespace WaaSDomain
         {
             string containerName = fileSto.GetContainer();
 
-            FileWorkspace file = fileDao.GetFile(fileId);
+            FileWorkspace file = fileDao.GetWorkspaceFile(fileId);
 
             bool fileStoBool = fileSto.DeleteFile(file.Name, file.UserId, null, containerName);
-            bool fileDaoBool = fileDao.DeleteFile(fileId);
+            bool fileDaoBool = fileDao.DeleteWorkspaceFile(fileId);
 
             if (fileDaoBool && fileStoBool)
                 return true;
@@ -80,7 +80,7 @@ namespace WaaSDomain
 
         public List<FileWorkspace> GetWorkspaceFiles(string userId)
         {
-            return fileDao.GetFiles(userId);
+            return fileDao.GetWorkspaceFiles(userId);
         }
 
     }

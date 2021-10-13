@@ -201,7 +201,7 @@ namespace WaaSAlphaMark1
             this.label4.TabIndex = 17;
             this.label4.Text = "Sheets";
             // 
-            // Form1
+            // ViewTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -222,7 +222,7 @@ namespace WaaSAlphaMark1
             this.Controls.Add(this.dgvFiles);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnChoose);
-            this.Name = "Form1";
+            this.Name = "ViewTableForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();

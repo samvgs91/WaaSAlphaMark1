@@ -1,7 +1,7 @@
 ﻿
 namespace WaaSAlphaMark1
 {
-    partial class Workspace
+    partial class DataView
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,6 @@ namespace WaaSAlphaMark1
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.adomdCommand1 = new Microsoft.AnalysisServices.AdomdClient.AdomdCommand();
@@ -40,12 +39,10 @@ namespace WaaSAlphaMark1
             this.pboxSearchBox = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.ibtNewFile = new FontAwesome.Sharp.IconButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
             this.dgvWorkspace = new System.Windows.Forms.DataGridView();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pnlTopOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchBox)).BeginInit();
@@ -124,7 +121,6 @@ namespace WaaSAlphaMark1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.ibtNewFile);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lblFileName);
@@ -145,27 +141,6 @@ namespace WaaSAlphaMark1
             this.label4.Size = new System.Drawing.Size(1120, 1);
             this.label4.TabIndex = 4;
             // 
-            // ibtNewFile
-            // 
-            this.ibtNewFile.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibtNewFile.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
-            this.ibtNewFile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewFile.IconChar = FontAwesome.Sharp.IconChar.Plus;
-            this.ibtNewFile.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewFile.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibtNewFile.IconSize = 30;
-            this.ibtNewFile.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtNewFile.Location = new System.Drawing.Point(21, 9);
-            this.ibtNewFile.Name = "ibtNewFile";
-            this.ibtNewFile.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.ibtNewFile.Size = new System.Drawing.Size(120, 49);
-            this.ibtNewFile.TabIndex = 1;
-            this.ibtNewFile.Text = "New";
-            this.ibtNewFile.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.ibtNewFile.UseVisualStyleBackColor = true;
-            this.ibtNewFile.Click += new System.EventHandler(this.ibtNewFile_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -182,11 +157,11 @@ namespace WaaSAlphaMark1
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.label1.Location = new System.Drawing.Point(468, 76);
+            this.label1.Location = new System.Drawing.Point(208, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 21);
+            this.label1.Size = new System.Drawing.Size(77, 21);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Last modified";
+            this.label1.Text = "DataType";
             // 
             // lblFileName
             // 
@@ -195,9 +170,9 @@ namespace WaaSAlphaMark1
             this.lblFileName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
             this.lblFileName.Location = new System.Drawing.Point(47, 76);
             this.lblFileName.Name = "lblFileName";
-            this.lblFileName.Size = new System.Drawing.Size(51, 21);
+            this.lblFileName.Size = new System.Drawing.Size(64, 21);
             this.lblFileName.TabIndex = 1;
-            this.lblFileName.Text = "Name";
+            this.lblFileName.Text = "Column";
             // 
             // dgvWorkspace
             // 
@@ -229,14 +204,8 @@ namespace WaaSAlphaMark1
             this.dgvWorkspace.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvWorkspace.Size = new System.Drawing.Size(1120, 440);
             this.dgvWorkspace.TabIndex = 2;
-            this.dgvWorkspace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvWorkspace_MouseClick);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // Workspace
+            // DataView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -244,7 +213,7 @@ namespace WaaSAlphaMark1
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlTopOptions);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Workspace";
+            this.Name = "DataView";
             this.Text = "Workspace";
             this.pnlTopOptions.ResumeLayout(false);
             this.pnlTopOptions.PerformLayout();
@@ -270,8 +239,6 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private FontAwesome.Sharp.IconButton ibtNewFile;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
