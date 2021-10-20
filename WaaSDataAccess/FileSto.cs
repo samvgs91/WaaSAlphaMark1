@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data;
 using Azure;
 using Azure.Storage.Files.DataLake;
 using Azure.Storage.Files.DataLake.Models;
 using Azure.Storage;
 using System.IO;
+using ExcelDataReader;
+using System.Data.SqlClient;
+using System.Data.OleDb;
 
 namespace WaaSDataAccess
 {
@@ -79,6 +82,45 @@ namespace WaaSDataAccess
                 directoryClient.DeleteFile(fileName);
 
                 return true;
+        }
+
+        public DataTable GetMetataFromExcelFile(string fileName, string destinyPath, string subDestinyPath, string sourcePath, string container)
+        {
+            DataLakeServiceClient connection = GetConnection();
+            DataLakeFileSystemClient fileSystemClient = connection.GetFileSystemClient(container);
+            DataLakeDirectoryClient DirectoryClient = fileSystemClient.GetDirectoryClient(destinyPath);
+            DataLakeFileClient fileClient = DirectoryClient.GetFileClient(fileName);
+            DataTable ds;
+
+
+            //DataTableCollection dataTableCollection;
+            //DataTable dt;
+
+
+            //using (var stream = fileClient.OpenRead())
+            //{
+            //    using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream))
+            //    {
+            //        DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+            //        {
+            //            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+            //        });
+            //        dataTableCollection = result.Tables;
+            //    }
+            //}
+
+
+            using (var stream = fileClient.OpenRead())
+            {
+                var excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                //ds = (DataSet)excelReader.Read();
+                using (IExcelDataReader reader = ExcelReaderFactory.CreateOpenXmlReader(stream))
+                {
+                    ds = reader.GetSchemaTable();
+                }
+            }
+            return ds;
+
         }
     }
 }
