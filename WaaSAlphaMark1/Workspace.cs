@@ -18,6 +18,8 @@ namespace WaaSAlphaMark1
 
         private string UserId;
         private int currentMouseOverRow;
+        private string SelectedFileId;
+        public event EventHandler Selected;
 
         public Workspace(string userId)
         {
@@ -113,7 +115,7 @@ namespace WaaSAlphaMark1
             {
                 ContextMenu m = new ContextMenu();
                 m.MenuItems.Add(new MenuItem("Delete",DeleteFileOnClick));
-                m.MenuItems.Add(new MenuItem("Create Dataset", MenuOnClick));
+                m.MenuItems.Add(new MenuItem("Create Dataset", CreateDataSet));
                 m.MenuItems.Add(new MenuItem("Download", MenuOnClick));
 
                 currentMouseOverRow = dgvWorkspace.HitTest(e.X, e.Y).RowIndex;
@@ -157,6 +159,25 @@ namespace WaaSAlphaMark1
             }
         }
 
+        private void CreateDataSet(object sender, EventArgs args)
+        {
+            SelectedFileId = dgvWorkspace.Rows[currentMouseOverRow].Cells[0].Value.ToString();
+            //MessageBox.Show(SelectedFileId);
+            this.Close();
+            SelectFile(null);
+        }
+        protected virtual void SelectFile(EventArgs e)
+        {
+            EventHandler eh = Selected;
+            if (eh != null)
+            {
+                eh(this, e);
+            }
+        }
 
+        public string GetSelectedFile()
+        {
+            return SelectedFileId;
+        }
     }
 }

@@ -19,12 +19,13 @@ namespace WaaSAlphaMark1
         private Panel leftBorderBtn;
         private Form currentChildForm;
         private string UserId;
+        private string SelectedWorkspaceFileId;
 
         public Main_Portal(string userId)
         {
             InitializeComponent();
             leftBorderBtn = new Panel();
-            leftBorderBtn.Size = new Size(7,60);
+            leftBorderBtn.Size = new Size(7, 60);
             pnlMenu.Controls.Add(leftBorderBtn);
             UserId = userId;
 
@@ -41,8 +42,8 @@ namespace WaaSAlphaMark1
         private extern static void SendMessage(System.IntPtr hand, int wmsg, int wparam, int lparam);
 
         private void ActivateButton(object senderBtn, Color color)
-        { 
-           if(senderBtn != null)
+        {
+            if (senderBtn != null)
             {
 
                 DisableButton();
@@ -57,19 +58,19 @@ namespace WaaSAlphaMark1
                 currentBtn.ImageAlign = ContentAlignment.MiddleRight;
 
                 leftBorderBtn.BackColor = color;
-                leftBorderBtn.Location = new Point(0,currentBtn.Location.Y);
+                leftBorderBtn.Location = new Point(0, currentBtn.Location.Y);
                 leftBorderBtn.Visible = true;
                 leftBorderBtn.BringToFront();
 
                 ibtnHome.IconChar = currentBtn.IconChar;
                 lblHome.Text = currentBtn.Text;
-               // ibtnHome.IconColor = color;
+                // ibtnHome.IconColor = color;
             }
         }
 
         private struct RGBColors
         {
-            public static Color color1 = Color.FromArgb(172,126,241);
+            public static Color color1 = Color.FromArgb(172, 126, 241);
             public static Color color2 = Color.FromArgb(233, 227, 215);
             public static Color color3 = Color.FromArgb(253, 138, 114);
             public static Color color4 = Color.FromArgb(95, 77, 221);
@@ -82,7 +83,7 @@ namespace WaaSAlphaMark1
             if (currentBtn != null)
             {
                 currentBtn.BackColor = Color.FromArgb(244, 243, 239);
-                currentBtn.ForeColor = Color.FromArgb(54,76,99);
+                currentBtn.ForeColor = Color.FromArgb(54, 76, 99);
                 currentBtn.TextAlign = ContentAlignment.MiddleLeft;
                 currentBtn.IconColor = Color.FromArgb(54, 76, 99);
                 currentBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -96,22 +97,85 @@ namespace WaaSAlphaMark1
             {
                 currentChildForm.Close();
             }
-
-            currentChildForm = childForm;
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            childForm.Size = pnlDesktop.Size;
-            pnlDesktop.Controls.Add(childForm);
-            pnlDesktop.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
+            using (childForm)
+            {
+                currentChildForm = childForm;
+                childForm.TopLevel = false;
+                childForm.FormBorderStyle = FormBorderStyle.None;
+                childForm.Dock = DockStyle.Fill;
+                childForm.Size = pnlDesktop.Size;
+                pnlDesktop.Controls.Add(childForm);
+                pnlDesktop.Tag = childForm;
+                childForm.BringToFront();
+                childForm.Show();
+            }
         }
 
         private void ibtnWorkspace_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            OpenChildForm(new Workspace(UserId));
+            //OpenChildForm(new Workspace(UserId));
+            OpenWorkspace();
+        }
+
+        private void OpenWorkspace()
+        {
+
+            Workspace childForm = new Workspace(UserId);
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+            //using (childForm)
+            //{
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childForm.Size = pnlDesktop.Size;
+            childForm.Selected += new EventHandler(GetWorkspaceFile);
+            pnlDesktop.Controls.Add(childForm);
+            pnlDesktop.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+            //    SelectedWorkspaceFileId = childForm.GetSelectedFile();
+            //}
+
+            //if (SelectedWorkspaceFileId != null)
+            //{
+            //    MessageBox.Show("Id: " + SelectedWorkspaceFileId);
+            //}
+        }
+
+        private void GetWorkspaceFile(object sender, EventArgs e)
+        {
+            Workspace frm = sender as Workspace;
+            if (frm != null)
+            {
+                SelectedWorkspaceFileId = frm.GetSelectedFile();
+                MessageBox.Show("Id Seleceted from Child Form is: " + SelectedWorkspaceFileId);
+                OpenDataSetViewFromFile();
+            }
+        }
+
+        private void OpenDataSetViewFromFile()
+        {
+            DatasetView childForm = new DatasetView(UserId, SelectedWorkspaceFileId);
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childForm.Size = pnlDesktop.Size;
+            //childForm.Selected += new EventHandler(GetWorkspaceFile);
+            pnlDesktop.Controls.Add(childForm);
+            pnlDesktop.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+            SelectedWorkspaceFileId = null;
         }
 
         private void ibtnData_Click(object sender, EventArgs e)
