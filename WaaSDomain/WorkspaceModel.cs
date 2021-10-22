@@ -14,8 +14,6 @@ namespace WaaSDomain
         FileSto fileSto = new FileSto();
         FileDao fileDao = new FileDao();
 
-
-
         public bool AddFile(string fileName, string destinyPath, string sourcePath,string size)
         {
             string accountName = fileSto.GetAccount();
@@ -47,6 +45,16 @@ namespace WaaSDomain
                 return true;
             else
                 return false;
+        }
+
+        public DataTable GetMetadataFromFile(string fileId)
+        {
+            FileWorkspace file = fileDao.GetWorkspaceFile(fileId);
+            string containerName = fileSto.GetContainer();
+            DataTable metadata;
+            metadata = fileSto.GetMetataFromExcelFile(file.Name, file.Path, containerName);
+
+            return metadata;
         }
 
 

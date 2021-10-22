@@ -154,6 +154,12 @@
     <Compile Include="CreateUser.Designer.cs">
       <DependentUpon>CreateUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataSetViewNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataSetViewNew.Designer.cs">
+      <DependentUpon>DataSetViewNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSetView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,6 +214,9 @@
     </Compile>
     <EmbeddedResource Include="CreateUser.resx">
       <DependentUpon>CreateUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataSetViewNew.resx">
+      <DependentUpon>DataSetViewNew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataSetView.resx">
       <DependentUpon>DataSetView.cs</DependentUpon>

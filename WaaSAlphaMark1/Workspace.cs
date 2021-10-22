@@ -150,7 +150,6 @@ namespace WaaSAlphaMark1
         {
             //TODO
             MenuItem mi = (MenuItem)sender;
-            //MessageBox.Show(mi.Text);
 
             if(currentMouseOverRow>0)
             {

@@ -84,14 +84,14 @@ namespace WaaSDataAccess
                 return true;
         }
 
-        public DataTable GetMetataFromExcelFile(string fileName, string destinyPath, string subDestinyPath, string sourcePath, string container)
+        public DataTable GetMetataFromExcelFile(string fileName, string destinyPath, string container)
         {
             DataLakeServiceClient connection = GetConnection();
             DataLakeFileSystemClient fileSystemClient = connection.GetFileSystemClient(container);
             DataLakeDirectoryClient DirectoryClient = fileSystemClient.GetDirectoryClient(destinyPath);
             DataLakeFileClient fileClient = DirectoryClient.GetFileClient(fileName);
-            DataTable ds;
-
+            DataTable dt;
+            DataTable metadata = new DataTable("Metadata");
 
             //DataTableCollection dataTableCollection;
             //DataTable dt;
@@ -116,10 +116,33 @@ namespace WaaSDataAccess
                 //ds = (DataSet)excelReader.Read();
                 using (IExcelDataReader reader = ExcelReaderFactory.CreateOpenXmlReader(stream))
                 {
-                    ds = reader.GetSchemaTable();
+                    DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                    {
+                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                    });
+
+                    dt = result.Tables[0];
+
+                    metadata.Columns.Add("SourceColumn", typeof(string));
+                    metadata.Columns.Add("ColumnName", typeof(string));
+                    metadata.Columns.Add("ColumnDataType", typeof(string));
+                    metadata.Columns.Add("ColumnModelType", typeof(string));
+                    metadata.Columns.Add("ColumnMetricType", typeof(string));
+
+                    int contador = 1;
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        metadata.Rows.Add(contador, column.ColumnName.ToString(), column.DataType.ToString().Replace("System.", ""), "Attribute", "");
+                        contador += 1;
+                    }
+
+
                 }
             }
-            return ds;
+
+
+            //return dt;
+            return metadata;
 
         }
     }

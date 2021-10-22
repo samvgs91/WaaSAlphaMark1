@@ -153,14 +153,14 @@ namespace WaaSAlphaMark1
             if (frm != null)
             {
                 SelectedWorkspaceFileId = frm.GetSelectedFile();
-                MessageBox.Show("Id Seleceted from Child Form is: " + SelectedWorkspaceFileId);
+                //MessageBox.Show("Id Seleceted from Child Form is: " + SelectedWorkspaceFileId);
                 OpenDataSetViewFromFile();
             }
         }
 
         private void OpenDataSetViewFromFile()
         {
-            DatasetView childForm = new DatasetView(UserId, SelectedWorkspaceFileId);
+            DatasetViewNew childForm = new DatasetViewNew(UserId, SelectedWorkspaceFileId);
             if (currentChildForm != null)
             {
                 currentChildForm.Close();
