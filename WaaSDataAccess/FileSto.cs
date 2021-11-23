@@ -84,6 +84,31 @@ namespace WaaSDataAccess
                 return true;
         }
 
+        public bool CopyFile(string fileName, string sourcePath, string destinyPath, string subDestinyPath, string container)
+        {
+
+            DataLakeServiceClient connection = GetConnection();
+            DataLakeFileSystemClient fileSystemClient = connection.GetFileSystemClient(container);
+            DataLakeDirectoryClient sourceDirectoryClient = fileSystemClient.GetDirectoryClient(sourcePath);
+            DataLakeDirectoryClient destinyDirectoryClient = fileSystemClient.GetDirectoryClient(destinyPath);
+            DataLakeDirectoryClient destinySubDirectoryClient = destinyDirectoryClient.GetSubDirectoryClient(subDestinyPath);
+
+            DataLakeFileClient sourcefileClient = sourceDirectoryClient.GetFileClient(fileName);
+
+            DataLakeFileClient destinyFileClient = destinySubDirectoryClient.GetFileClient(fileName);
+
+            using (var fileStream = sourcefileClient.OpenRead())
+            {
+                long fileSize = fileStream.Length;
+
+                destinyFileClient.Upload(fileStream, true);
+
+                destinyFileClient.Flush(position: fileSize);
+            }
+
+             return true;
+        }
+
         public DataTable GetMetataFromExcelFile(string fileName, string destinyPath, string container)
         {
             DataLakeServiceClient connection = GetConnection();
@@ -143,6 +168,34 @@ namespace WaaSDataAccess
 
             //return dt;
             return metadata;
+
+        }
+        public DataTableCollection GetDataTablesFromExcelFile(string fileName, string destinyPath, string container)
+        {
+            DataLakeServiceClient connection = GetConnection();
+            DataLakeFileSystemClient fileSystemClient = connection.GetFileSystemClient(container);
+            DataLakeDirectoryClient DirectoryClient = fileSystemClient.GetDirectoryClient(destinyPath);
+            DataLakeFileClient fileClient = DirectoryClient.GetFileClient(fileName);
+            DataTableCollection sheets;
+
+
+            using (var stream = fileClient.OpenRead())
+            {
+                var excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                //ds = (DataSet)excelReader.Read();
+                using (IExcelDataReader reader = ExcelReaderFactory.CreateOpenXmlReader(stream))
+                {
+                    DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                    {
+                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                    });
+
+                    sheets = result.Tables;
+
+                }
+            }
+           
+            return sheets;
 
         }
     }

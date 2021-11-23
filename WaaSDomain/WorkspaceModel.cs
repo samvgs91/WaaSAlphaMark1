@@ -31,7 +31,6 @@ namespace WaaSDomain
             else
                 return false;
         }
-
         public bool DeleteFile(string fileId)
         {
             string containerName = fileSto.GetContainer();
@@ -46,18 +45,46 @@ namespace WaaSDomain
             else
                 return false;
         }
-
-        public DataTable GetMetadataFromFile(string fileId)
+        public DataTable GetMetadataFromFile(string fileId,string sheetName)
         {
+            DataTable metadata = new DataTable("Metadata"); ;
+            DataTable dt;
             FileWorkspace file = fileDao.GetWorkspaceFile(fileId);
             string containerName = fileSto.GetContainer();
-            DataTable metadata;
-            metadata = fileSto.GetMetataFromExcelFile(file.Name, file.Path, containerName);
+
+            DataTableCollection sheetsDataTablesCollection = fileSto.GetDataTablesFromExcelFile(file.Name, file.UserId, containerName);
+            dt = sheetsDataTablesCollection.Cast<DataTable>().Where(t => t.TableName == sheetName).FirstOrDefault();
+
+            metadata.Columns.Add("SourceColumn", typeof(string));
+            metadata.Columns.Add("ColumnName", typeof(string));
+            metadata.Columns.Add("ColumnDataType", typeof(string));
+            metadata.Columns.Add("ColumnModelType", typeof(string));
+            metadata.Columns.Add("ColumnMetricType", typeof(string));
+
+            int contador = 1;
+            foreach (DataColumn column in dt.Columns)
+            {
+                metadata.Rows.Add(contador, column.ColumnName.ToString(), column.DataType.ToString().Replace("System.", ""), "Attribute", "");
+                contador += 1;
+            }
+
+            //metadata = 
 
             return metadata;
         }
+        public List<String> GetSheetList(string fileId)
+        {
+            string containerName = fileSto.GetContainer();
+            FileWorkspace file = fileDao.GetWorkspaceFile(fileId);
+            DataTableCollection sheetsDataTables = fileSto.GetDataTablesFromExcelFile(file.Name, file.UserId, containerName);
 
-
+            List<String> sheetNames = sheetsDataTables.Cast<DataTable>().Select(t => t.TableName).ToList<string>();
+            return sheetNames;
+        }
+       public FileWorkspace GetWorkspaceFile(string FileId)
+        {
+            return fileDao.GetWorkspaceFile(FileId);
+        }
         //public DataTable GetWorkspaceFiles(string userId)
         //{
         //    DataTable dt = new DataTable();

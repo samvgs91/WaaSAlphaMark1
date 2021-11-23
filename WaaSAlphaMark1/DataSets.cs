@@ -22,65 +22,38 @@ namespace WaaSAlphaMark1
         {
             this.UserId = userId;
             InitializeComponent();
-            FillWorkspaceFiles();
+            LoadConfiguration();
         }
 
         private void ibtNewFile_Click(object sender, EventArgs e)
         {
 
-            OpenFileDialog file = new OpenFileDialog();//open dialog to choose file
-            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)//if there is a file choosen by the user
-            {
-                string filePath = file.FileName;//get the path of the file
-                string fileName = file.SafeFileName;
-                string fileExt = Path.GetExtension(filePath);//get the file extension
-                FileInfo fileInf = new FileInfo(filePath);
-                long fileSize = fileInf.Length;
-                if (fileExt.CompareTo(".xls") == 0 || fileExt.CompareTo(".xlsx") == 0)
-                {
-                    try
-                    {
-                        WorkspaceModel workspaceModel = new WorkspaceModel();
-
-                        workspaceModel.AddFile(fileName, UserId, filePath, fileSize.ToString());
-
-                        FillWorkspaceFiles();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message.ToString());
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Please choose .xls or .xlsx file only.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);//custom messageBox to show error
-                }
-            }
+            //TODO
 
         }
 
-        private void FillWorkspaceFiles()
+        private void LoadConfiguration()
         {
 
-            WorkspaceModel workspaceModel = new WorkspaceModel();
+            DatasetModel datasetModel = new DatasetModel();
 
             //List<FileWorkspace> files = workspaceModel.GetWorkspaceFiles(UserId);
-            dgvWorkspace.DataSource = workspaceModel.GetWorkspaceFiles(UserId);
+            dgvDatasets.DataSource = datasetModel.GetDatasets(UserId);
 
 
-            dgvWorkspace.Columns[0].Visible = false;
-            dgvWorkspace.Columns[1].Visible = false;
-            dgvWorkspace.Columns[2].Width = 450;
-            dgvWorkspace.Columns[3].Width = 250;
-            dgvWorkspace.Columns[4].Visible = false;
-            dgvWorkspace.Columns[5].Visible = false;
-            dgvWorkspace.Columns[6].Visible = false;
-            dgvWorkspace.Columns[7].Visible = false;
-            dgvWorkspace.Columns[8].Width = 350;
-            dgvWorkspace.Columns[9].Visible = false;
+            dgvDatasets.Columns[0].Visible = false;
+            dgvDatasets.Columns[1].Visible = false;
+            dgvDatasets.Columns[2].Width = 450;
+            dgvDatasets.Columns[3].Width = 250;
+            dgvDatasets.Columns[4].Visible = false;
+            dgvDatasets.Columns[5].Visible = false;
+            dgvDatasets.Columns[6].Visible = false;
+            dgvDatasets.Columns[7].Visible = false;
+            dgvDatasets.Columns[8].Width = 350;
+            dgvDatasets.Columns[9].Visible = false;
 
-            dgvWorkspace.Columns[3].DisplayIndex = 8;
-            dgvWorkspace.Columns[8].DisplayIndex = 3;
+            dgvDatasets.Columns[3].DisplayIndex = 8;
+            dgvDatasets.Columns[8].DisplayIndex = 3;
 
 
         }

@@ -138,13 +138,7 @@ namespace WaaSAlphaMark1
             pnlDesktop.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-            //    SelectedWorkspaceFileId = childForm.GetSelectedFile();
-            //}
 
-            //if (SelectedWorkspaceFileId != null)
-            //{
-            //    MessageBox.Show("Id: " + SelectedWorkspaceFileId);
-            //}
         }
 
         private void GetWorkspaceFile(object sender, EventArgs e)
@@ -175,7 +169,15 @@ namespace WaaSAlphaMark1
             pnlDesktop.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+            childForm.FormClosed += ResetWorkSpace;
             SelectedWorkspaceFileId = null;
+        }
+
+        private void ResetWorkSpace(object sender, FormClosedEventArgs e)
+        { 
+            //ActivateButton(sender, RGBColors.color2);
+            //OpenChildForm(new Workspace(UserId));
+            OpenWorkspace();
         }
 
         private void ibtnData_Click(object sender, EventArgs e)

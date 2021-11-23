@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace WaaSEntities
 {
-    public class Dataset
+    public class DatasetMetadata
     {
         public string Id { get; set; }
-        public string UserId { get; set; }
-        public string Name { get; set; }
+        public string SourceColumn { get; set; }
+        public string ColumnName { get; set; }
+        public string ColumnDataType { get; set; }
+        public string ColumnModelType { get; set; }
+        public string MetricAggFunction { get; set; }
         public DateTime CreateOn { get; set; }
         public DateTime LastModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
-        public List<DatasetMetadata> columns { get; set; }
     }
 }

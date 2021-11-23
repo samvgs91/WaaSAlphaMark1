@@ -34,11 +34,13 @@ namespace WaaSAlphaMark1
             this.adomdCommand1 = new Microsoft.AnalysisServices.AdomdClient.AdomdCommand();
             this.pnlTopOptions = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cboSheet = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtSearchFiles = new System.Windows.Forms.TextBox();
+            this.txtDatasetName = new System.Windows.Forms.TextBox();
             this.pboxSearchBox = new System.Windows.Forms.PictureBox();
             this.ibtCancel = new FontAwesome.Sharp.IconButton();
             this.ibtCreateDataset = new FontAwesome.Sharp.IconButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ibtChoooseFile = new FontAwesome.Sharp.IconButton();
@@ -49,9 +51,13 @@ namespace WaaSAlphaMark1
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.dgvMetadata = new System.Windows.Forms.DataGridView();
+            this.lblErrorMessageDSName = new System.Windows.Forms.Label();
+            this.lblErrorMessageMetadata = new System.Windows.Forms.Label();
+            this.lblErrorMessageSheet = new System.Windows.Forms.Label();
             this.pnlTopOptions.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).BeginInit();
             this.SuspendLayout();
@@ -79,16 +85,31 @@ namespace WaaSAlphaMark1
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.panel2.Controls.Add(this.lblErrorMessageSheet);
+            this.panel2.Controls.Add(this.lblErrorMessageDSName);
+            this.panel2.Controls.Add(this.cboSheet);
             this.panel2.Controls.Add(this.label12);
-            this.panel2.Controls.Add(this.txtSearchFiles);
+            this.panel2.Controls.Add(this.txtDatasetName);
             this.panel2.Controls.Add(this.pboxSearchBox);
             this.panel2.Controls.Add(this.ibtCancel);
             this.panel2.Controls.Add(this.ibtCreateDataset);
+            this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1120, 100);
             this.panel2.TabIndex = 4;
+            // 
+            // cboSheet
+            // 
+            this.cboSheet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
+            this.cboSheet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSheet.FormattingEnabled = true;
+            this.cboSheet.Location = new System.Drawing.Point(350, 36);
+            this.cboSheet.Name = "cboSheet";
+            this.cboSheet.Size = new System.Drawing.Size(138, 21);
+            this.cboSheet.TabIndex = 17;
+            this.cboSheet.SelectionChangeCommitted += new System.EventHandler(this.cboSheet_SelectionChangeCommitted);
             // 
             // label12
             // 
@@ -100,22 +121,24 @@ namespace WaaSAlphaMark1
             this.label12.Size = new System.Drawing.Size(1120, 1);
             this.label12.TabIndex = 3;
             // 
-            // txtSearchFiles
+            // txtDatasetName
             // 
-            this.txtSearchFiles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
-            this.txtSearchFiles.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSearchFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.txtSearchFiles.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.txtSearchFiles.Location = new System.Drawing.Point(33, 39);
-            this.txtSearchFiles.Name = "txtSearchFiles";
-            this.txtSearchFiles.Size = new System.Drawing.Size(283, 16);
-            this.txtSearchFiles.TabIndex = 0;
-            this.txtSearchFiles.Text = "Name of Dataset";
+            this.txtDatasetName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
+            this.txtDatasetName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDatasetName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.txtDatasetName.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.txtDatasetName.Location = new System.Drawing.Point(30, 37);
+            this.txtDatasetName.Name = "txtDatasetName";
+            this.txtDatasetName.Size = new System.Drawing.Size(283, 16);
+            this.txtDatasetName.TabIndex = 0;
+            this.txtDatasetName.Text = "Name of Dataset";
+            this.txtDatasetName.Enter += new System.EventHandler(this.txtDatasetName_Enter);
+            this.txtDatasetName.Leave += new System.EventHandler(this.txtDatasetName_Leave);
             // 
             // pboxSearchBox
             // 
             this.pboxSearchBox.Image = global::WaaSAlphaMark1.Properties.Resources.SearchBar;
-            this.pboxSearchBox.Location = new System.Drawing.Point(25, 30);
+            this.pboxSearchBox.Location = new System.Drawing.Point(22, 28);
             this.pboxSearchBox.Name = "pboxSearchBox";
             this.pboxSearchBox.Size = new System.Drawing.Size(300, 35);
             this.pboxSearchBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -133,7 +156,7 @@ namespace WaaSAlphaMark1
             this.ibtCancel.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibtCancel.IconSize = 20;
             this.ibtCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ibtCancel.Location = new System.Drawing.Point(475, 31);
+            this.ibtCancel.Location = new System.Drawing.Point(646, 31);
             this.ibtCancel.Name = "ibtCancel";
             this.ibtCancel.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.ibtCancel.Size = new System.Drawing.Size(122, 32);
@@ -141,6 +164,7 @@ namespace WaaSAlphaMark1
             this.ibtCancel.Text = "Cancel";
             this.ibtCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ibtCancel.UseVisualStyleBackColor = true;
+            this.ibtCancel.Click += new System.EventHandler(this.ibtCancel_Click);
             // 
             // ibtCreateDataset
             // 
@@ -153,7 +177,7 @@ namespace WaaSAlphaMark1
             this.ibtCreateDataset.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibtCreateDataset.IconSize = 20;
             this.ibtCreateDataset.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ibtCreateDataset.Location = new System.Drawing.Point(347, 31);
+            this.ibtCreateDataset.Location = new System.Drawing.Point(518, 31);
             this.ibtCreateDataset.Name = "ibtCreateDataset";
             this.ibtCreateDataset.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.ibtCreateDataset.Size = new System.Drawing.Size(122, 32);
@@ -161,6 +185,17 @@ namespace WaaSAlphaMark1
             this.ibtCreateDataset.Text = "Create";
             this.ibtCreateDataset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ibtCreateDataset.UseVisualStyleBackColor = true;
+            this.ibtCreateDataset.Click += new System.EventHandler(this.ibtCreateDataset_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::WaaSAlphaMark1.Properties.Resources.SearchBar;
+            this.pictureBox1.Location = new System.Drawing.Point(339, 28);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(159, 35);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 18;
+            this.pictureBox1.TabStop = false;
             // 
             // label3
             // 
@@ -175,6 +210,7 @@ namespace WaaSAlphaMark1
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.panel1.Controls.Add(this.lblErrorMessageMetadata);
             this.panel1.Controls.Add(this.ibtChoooseFile);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
@@ -200,7 +236,7 @@ namespace WaaSAlphaMark1
             this.ibtChoooseFile.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.ibtChoooseFile.IconSize = 20;
             this.ibtChoooseFile.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ibtChoooseFile.Location = new System.Drawing.Point(52, 29);
+            this.ibtChoooseFile.Location = new System.Drawing.Point(57, 23);
             this.ibtChoooseFile.Name = "ibtChoooseFile";
             this.ibtChoooseFile.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.ibtChoooseFile.Size = new System.Drawing.Size(122, 32);
@@ -305,6 +341,42 @@ namespace WaaSAlphaMark1
             this.dgvMetadata.TabIndex = 13;
             this.dgvMetadata.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMetadata_CellClick);
             // 
+            // lblErrorMessageDSName
+            // 
+            this.lblErrorMessageDSName.AutoSize = true;
+            this.lblErrorMessageDSName.Font = new System.Drawing.Font("Franklin Gothic Demi", 10F);
+            this.lblErrorMessageDSName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(86)))), ((int)(((byte)(86)))));
+            this.lblErrorMessageDSName.Location = new System.Drawing.Point(106, 66);
+            this.lblErrorMessageDSName.Name = "lblErrorMessageDSName";
+            this.lblErrorMessageDSName.Size = new System.Drawing.Size(99, 18);
+            this.lblErrorMessageDSName.TabIndex = 25;
+            this.lblErrorMessageDSName.Text = "Error Message";
+            this.lblErrorMessageDSName.Visible = false;
+            // 
+            // lblErrorMessageMetadata
+            // 
+            this.lblErrorMessageMetadata.AutoSize = true;
+            this.lblErrorMessageMetadata.Font = new System.Drawing.Font("Franklin Gothic Demi", 10F);
+            this.lblErrorMessageMetadata.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(86)))), ((int)(((byte)(86)))));
+            this.lblErrorMessageMetadata.Location = new System.Drawing.Point(431, 50);
+            this.lblErrorMessageMetadata.Name = "lblErrorMessageMetadata";
+            this.lblErrorMessageMetadata.Size = new System.Drawing.Size(99, 18);
+            this.lblErrorMessageMetadata.TabIndex = 26;
+            this.lblErrorMessageMetadata.Text = "Error Message";
+            this.lblErrorMessageMetadata.Visible = false;
+            // 
+            // lblErrorMessageSheet
+            // 
+            this.lblErrorMessageSheet.AutoSize = true;
+            this.lblErrorMessageSheet.Font = new System.Drawing.Font("Franklin Gothic Demi", 10F);
+            this.lblErrorMessageSheet.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(86)))), ((int)(((byte)(86)))));
+            this.lblErrorMessageSheet.Location = new System.Drawing.Point(376, 66);
+            this.lblErrorMessageSheet.Name = "lblErrorMessageSheet";
+            this.lblErrorMessageSheet.Size = new System.Drawing.Size(99, 18);
+            this.lblErrorMessageSheet.TabIndex = 27;
+            this.lblErrorMessageSheet.Text = "Error Message";
+            this.lblErrorMessageSheet.Visible = false;
+            // 
             // DatasetViewNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,6 +391,7 @@ namespace WaaSAlphaMark1
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).EndInit();
@@ -343,8 +416,13 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtSearchFiles;
+        private System.Windows.Forms.TextBox txtDatasetName;
         private System.Windows.Forms.PictureBox pboxSearchBox;
         private FontAwesome.Sharp.IconButton ibtChoooseFile;
+        private System.Windows.Forms.ComboBox cboSheet;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblErrorMessageDSName;
+        private System.Windows.Forms.Label lblErrorMessageMetadata;
+        private System.Windows.Forms.Label lblErrorMessageSheet;
     }
 }

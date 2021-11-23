@@ -24,7 +24,7 @@ namespace WaaSAlphaMark1
             this.UserId = userId;
             this.StartedFileId = fileId;
             InitializeComponent();
-            FillWorkspaceFiles();
+            LoadMainConfiguration();
 
         }
 
@@ -33,13 +33,19 @@ namespace WaaSAlphaMark1
 
         }
 
-        private void FillWorkspaceFiles()
+        private void LoadMainConfiguration()
         {
 
             WorkspaceModel workspaceModel = new WorkspaceModel();
+            string SelectedSheet;
+  
+            cboSheet.Items.Clear();
+            cboSheet.Items.AddRange(workspaceModel.GetSheetList(StartedFileId).ToArray<String>());
+            cboSheet.SelectedIndex = cboSheet.Items.Count - 1;
 
-            //List<FileWorkspace> files = workspaceModel.GetWorkspaceFiles(UserId);
-            dgvMetadata.DataSource = workspaceModel.GetMetadataFromFile(StartedFileId);
+            SelectedSheet = cboSheet.Text;
+
+            dgvMetadata.DataSource = workspaceModel.GetMetadataFromFile(StartedFileId, SelectedSheet);
 
 
             dgvMetadata.Columns["SourceColumn"].Width = 180;
@@ -142,6 +148,90 @@ namespace WaaSAlphaMark1
             //    txtSearchFiles.Text = "Search in Workspace";
             //    txtSearchFiles.ForeColor = System.Drawing.SystemColors.GrayText;
             //}
+        }
+
+        private void txtDatasetName_Enter(object sender, EventArgs e)
+        {
+            lblErrorMessageDSName.Visible = false;
+            lblErrorMessageMetadata.Visible = false;
+            lblErrorMessageSheet.Visible = false;
+
+            if (txtDatasetName.Text == "Name of Dataset")
+                {
+                    txtDatasetName.Text = "";
+                    txtDatasetName.ForeColor = SystemColors.GrayText;
+                }
+
+        }
+
+        private void txtDatasetName_Leave(object sender, EventArgs e)
+        {
+            if (txtDatasetName.Text == "")
+            {
+                txtDatasetName.Text = "Name of Dataset";
+                txtDatasetName.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void ibtCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void cboSheet_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //TODO
+            WorkspaceModel workspaceModel = new WorkspaceModel();
+            string SelectedSheet;
+
+            SelectedSheet = cboSheet.Text;
+
+            dgvMetadata.DataSource = workspaceModel.GetMetadataFromFile(StartedFileId, SelectedSheet);
+        }
+
+        private void ibtCreateDataset_Click(object sender, EventArgs e)
+        {
+            if(ValidateNewDataset())
+            {
+                DatasetModel datasetModel = new DatasetModel();
+                WorkspaceModel workspace = new WorkspaceModel();
+                DataTable metadata = dgvMetadata.DataSource as DataTable;
+                datasetModel.CreateDataset(UserId, txtDatasetName.Text, metadata, cboSheet.Text);
+                string newDatasetId = datasetModel.GetDatasetId(UserId, txtDatasetName.Text);
+                FileWorkspace wsFile = workspace.GetWorkspaceFile(StartedFileId);
+                datasetModel.AddFileFromWorkspace(UserId, newDatasetId, wsFile);
+                
+            }
+            
+        }
+
+        private bool ValidateNewDataset()
+        {
+            bool fullValidation = true;
+            int metadataRows = dgvMetadata.Rows.Count;
+            string sheetName = cboSheet.Text;
+            string datasetName = txtDatasetName.Text;
+
+            if (datasetName == "Name of Dataset")
+            {
+                fullValidation = false;
+                lblErrorMessageDSName.Text = "Must enter a dataset";
+                lblErrorMessageDSName.Visible = true;
+            }
+            if (metadataRows==0) 
+            {
+                fullValidation =  false;
+                lblErrorMessageMetadata.Text = "Not enought record in metadata";
+                lblErrorMessageMetadata.Visible = true;
+            }
+
+            if (sheetName == "")
+            {
+                fullValidation = false;
+                lblErrorMessageSheet.Text = "Must enter a sheetName";
+                lblErrorMessageSheet.Visible = true;
+            }
+            return fullValidation;
         }
     }
 }

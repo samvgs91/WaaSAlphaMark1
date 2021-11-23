@@ -218,7 +218,7 @@ namespace WaaSAlphaMark1
                 filePath = file.FileName;//get the path of the file
                 ///
                 DataTableCollection dataTableCollection;
-                DataTable dt;
+               
 
                 using (var stream = File.Open(file.FileName, FileMode.Open, FileAccess.Read))
                 {

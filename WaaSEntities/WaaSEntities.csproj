@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dataset.cs" />
+    <Compile Include="DatasetMetadata.cs" />
     <Compile Include="File.cs" />
     <Compile Include="FileDataset.cs" />
     <Compile Include="FileWorkspace.cs" />
