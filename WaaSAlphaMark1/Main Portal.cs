@@ -174,9 +174,10 @@ namespace WaaSAlphaMark1
         }
 
         private void ResetWorkSpace(object sender, FormClosedEventArgs e)
-        { 
+        {
             //ActivateButton(sender, RGBColors.color2);
             //OpenChildForm(new Workspace(UserId));
+            currentChildForm = null;
             OpenWorkspace();
         }
 

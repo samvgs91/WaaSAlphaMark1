@@ -13,6 +13,7 @@ namespace WaaSDomain
     {
         private DatasetDao datasetDao = new DatasetDao();
         private ADFProcessManager adfProcessManager = new ADFProcessManager();
+        private FileSto fileSto = new FileSto();
         private string filePipelineProcessor = "WaaSDataLoader";
 
         public bool CreateDataset(string UserId, string Name, DataTable metadata,string sheetName)
@@ -69,9 +70,11 @@ namespace WaaSDomain
         {
             string fileSize = sourceFile.Size.ToString();
             string dsFilePath = sourceFile.Path + "/" + DatasetId;
+            
 
             bool dsFilebool = datasetDao.InsertDatasetFile(UserId, DatasetId, sourceFile.Name, sourceFile.StorageAccountName , sourceFile.Container, dsFilePath, fileSize);
-            
+            bool fsFilebool = fileSto.CopyFile(sourceFile.Name, sourceFile.Path, sourceFile.Path, DatasetId, sourceFile.Container);
+
             return true;
         }
 
