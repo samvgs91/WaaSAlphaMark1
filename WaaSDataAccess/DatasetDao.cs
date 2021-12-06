@@ -313,5 +313,30 @@ namespace WaaSDataAccess
                 }
             }
         }
+
+        public bool DeployDataset(string DatasetId)
+        {
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "[WaaS].[USP_WAAS_DEPLOY_DATASET]";
+
+                    command.Parameters.AddWithValue("@DatasetId", DatasetId);
+
+                    var returnParameter = command.Parameters.Add("@ReturnVal", SqlDbType.Int);
+
+                    returnParameter.Direction = ParameterDirection.ReturnValue;
+                    command.ExecuteNonQuery();
+                    var result = returnParameter.Value;
+
+                    if ((Int32)result == 1) return true;
+                    else return false;
+                }
+            }
+        }
     }
 }

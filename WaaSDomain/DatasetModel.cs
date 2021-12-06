@@ -25,6 +25,7 @@ namespace WaaSDomain
                 if (metadataDaoBool)
                 {
                     datasetDao.GenerateDatasetConfiguration(datasetId, sheetName);
+                    datasetDao.DeployDataset(datasetId);
                     return true;
                 }
                 else
