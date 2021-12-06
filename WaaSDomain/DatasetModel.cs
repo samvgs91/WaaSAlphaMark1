@@ -67,6 +67,11 @@ namespace WaaSDomain
             return datasetDao.GetDatesetId(UserId, DatasetName);
         }
 
+        public FileDataset GetDatasetFileByName(string DatasetId, string FileName)
+        {
+            return datasetDao.GetDatasetFileByName(DatasetId,FileName);
+        }
+
         public bool AddFileFromWorkspace(string UserId, string DatasetId, FileWorkspace sourceFile)
         {
             string fileSize = sourceFile.Size.ToString();

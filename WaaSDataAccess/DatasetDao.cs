@@ -230,7 +230,47 @@ namespace WaaSDataAccess
                 }
             }
         }
-        public FileDataset GetDatasetFile(string FileId)
+        public FileDataset GetDatasetFileByName(string DatasetId, string FileName) 
+        {
+            FileDataset file = new FileDataset();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "[WaaS].[USP_WAAS_GET_DATASET_FILE_BY_NAME]";
+
+                    command.Parameters.AddWithValue("@DatasetId", DatasetId);
+                    command.Parameters.AddWithValue("@FileName", FileName);
+
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            file.Id = reader.GetString(0);
+                            file.UserId = reader.GetString(1);
+                            file.DatasetId = reader.GetString(2);
+                            file.Name = reader.GetString(3);
+                            file.Size = reader.GetInt32(4);
+                            file.StorageAccountName = reader.GetString(5);
+                            file.Container = reader.GetString(6);
+                            file.Path = reader.GetString(7);
+                            file.CreateOn = reader.GetDateTime(8);
+                            file.LastModifiedOn = reader.GetDateTime(9);
+                            file.Status = reader.GetString(10);
+                            file.IsDeleted = Convert.ToBoolean(reader.GetInt16(11));
+                        }
+
+                        return file;
+                    }
+
+                }
+            }
+        }
+        public FileDataset GetDatasetFileById(string FileId)
         {
             FileDataset file = new FileDataset();
             using (var connection = GetConnection())
@@ -313,7 +353,6 @@ namespace WaaSDataAccess
                 }
             }
         }
-
         public bool DeployDataset(string DatasetId)
         {
             using (var connection = GetConnection())

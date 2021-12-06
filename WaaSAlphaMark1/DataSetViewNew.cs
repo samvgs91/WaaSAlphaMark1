@@ -200,6 +200,7 @@ namespace WaaSAlphaMark1
                 string newDatasetId = datasetModel.GetDatasetId(UserId, txtDatasetName.Text);
                 FileWorkspace wsFile = workspace.GetWorkspaceFile(StartedFileId);
                 datasetModel.AddFileFromWorkspace(UserId, newDatasetId, wsFile);
+                FileDataset fileDs = datasetModel.GetDatasetFileByName(newDatasetId, wsFile.Name);
                 this.Close();
             }
             
