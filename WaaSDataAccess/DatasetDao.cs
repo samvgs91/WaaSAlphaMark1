@@ -68,7 +68,7 @@ namespace WaaSDataAccess
             Dataset ds = new Dataset();
             return ds;
         }
-        public string GetDatesetId(string UserId, string DatasetName)
+        public string GetDatasetId(string UserId, string DatasetName)
         {
             string datasetId = String.Empty;
             using (var connection = GetConnection())

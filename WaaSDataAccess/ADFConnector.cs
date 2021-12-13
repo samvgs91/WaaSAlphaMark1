@@ -51,7 +51,10 @@ namespace WaaSDataAccess
             cc = new ClientCredential(applicationId, authenticationKey);
             result = context.AcquireTokenAsync(resource, cc).Result;
             cred = new TokenCredentials(result.AccessToken);
-            adfClient = new DataFactoryManagementClient(cred);
+            adfClient = new DataFactoryManagementClient(cred)
+            {
+                SubscriptionId = subscriptionId
+            };
 
         }
 

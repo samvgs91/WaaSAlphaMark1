@@ -141,6 +141,26 @@ namespace WaaSAlphaMark1
 
         }
 
+        private void OpenDataSet()
+        {
+            DataSets childForm = new DataSets(UserId);
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+            //using (childForm)
+            //{
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childForm.Size = pnlDesktop.Size;
+            pnlDesktop.Controls.Add(childForm);
+            pnlDesktop.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+        }
+
         private void GetWorkspaceFile(object sender, EventArgs e)
         {
             Workspace frm = sender as Workspace;
@@ -178,12 +198,14 @@ namespace WaaSAlphaMark1
             //ActivateButton(sender, RGBColors.color2);
             //OpenChildForm(new Workspace(UserId));
             currentChildForm = null;
-            OpenWorkspace();
+            OpenDataSet();
+            //OpenWorkspace();
         }
 
         private void ibtnData_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
+            OpenDataSet();
         }
 
         private void ibtnModel_Click(object sender, EventArgs e)

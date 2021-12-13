@@ -16,16 +16,37 @@ namespace WaaSDomain
         private FileSto fileSto = new FileSto();
         private string filePipelineProcessor = "WaaSDataLoader";
 
-        public bool CreateDataset(string UserId, string Name, DataTable metadata,string sheetName)
+
+        public bool CreateDataset(string UserId, string Name, DataTable metadata,string sheetName,FileWorkspace sourceFile)
         {
             bool datasetDaoBool = datasetDao.CreateDataSet(UserId, Name);
             if (datasetDaoBool)
-            {   string datasetId = datasetDao.GetDatesetId(UserId, Name);
+            {   string datasetId = datasetDao.GetDatasetId(UserId, Name);
                 bool metadataDaoBool = datasetDao.InsertDataSetMetadata(metadata, datasetId);
                 if (metadataDaoBool)
                 {
                     datasetDao.GenerateDatasetConfiguration(datasetId, sheetName);
                     datasetDao.DeployDataset(datasetId);
+
+                    string fileSize = sourceFile.Size.ToString();
+                    string dsFilePath = sourceFile.Path + "/" + datasetId;
+
+                    bool dsFilebool = datasetDao.InsertDatasetFile(UserId, datasetId, sourceFile.Name, sourceFile.StorageAccountName, sourceFile.Container, dsFilePath, fileSize);
+                    bool fsFilebool = fileSto.CopyFile(sourceFile.Name, sourceFile.Path, sourceFile.Path, datasetId, sourceFile.Container);
+
+                    FileDataset fileDataset = datasetDao.GetDatasetFileByName(datasetId, sourceFile.Name);
+
+                    //datasetDao.GetDatasetFileByName(datasetId,)
+                    //string newDatasetId = datasetModel.GetDatasetId(UserId, txtDatasetName.Text);
+                    //FileWorkspace wsFile = workspace.GetWorkspaceFile(StartedFileId);
+
+                    Dictionary<string, object> parameters = new Dictionary<string, object>
+                    {
+                        { "DatasetFileId", fileDataset.Id}
+                    };
+
+                    adfProcessManager.LauchADFPipeline(parameters, filePipelineProcessor);
+
                     return true;
                 }
                 else
@@ -51,12 +72,11 @@ namespace WaaSDomain
             return datasetDao.GetDatasets(UserId);
         }
 
-        public void ProcessDatasetFile(string BlobId, string UserId)
+        public void ProcessDatasetFile(string DatasetFileId)
         { 
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
-                { "blobId", BlobId},
-                { "userId", UserId}
+                { "DatasetFileId", DatasetFileId}
             };
 
             adfProcessManager.LauchADFPipeline(parameters, filePipelineProcessor);
@@ -64,7 +84,7 @@ namespace WaaSDomain
 
         public string GetDatasetId(string UserId, string DatasetName)
         {
-            return datasetDao.GetDatesetId(UserId, DatasetName);
+            return datasetDao.GetDatasetId(UserId, DatasetName);
         }
 
         public FileDataset GetDatasetFileByName(string DatasetId, string FileName)
@@ -72,7 +92,7 @@ namespace WaaSDomain
             return datasetDao.GetDatasetFileByName(DatasetId,FileName);
         }
 
-        public bool AddFileFromWorkspace(string UserId, string DatasetId, FileWorkspace sourceFile)
+        private bool AddFileFromWorkspace(string UserId, string DatasetId, FileWorkspace sourceFile)
         {
             string fileSize = sourceFile.Size.ToString();
             string dsFilePath = sourceFile.Path + "/" + DatasetId;

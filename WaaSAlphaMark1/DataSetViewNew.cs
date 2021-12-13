@@ -195,12 +195,14 @@ namespace WaaSAlphaMark1
             {
                 DatasetModel datasetModel = new DatasetModel();
                 WorkspaceModel workspace = new WorkspaceModel();
-                DataTable metadata = dgvMetadata.DataSource as DataTable;
-                datasetModel.CreateDataset(UserId, txtDatasetName.Text, metadata, cboSheet.Text);
-                string newDatasetId = datasetModel.GetDatasetId(UserId, txtDatasetName.Text);
                 FileWorkspace wsFile = workspace.GetWorkspaceFile(StartedFileId);
-                datasetModel.AddFileFromWorkspace(UserId, newDatasetId, wsFile);
-                FileDataset fileDs = datasetModel.GetDatasetFileByName(newDatasetId, wsFile.Name);
+                DataTable metadata = dgvMetadata.DataSource as DataTable;
+                datasetModel.CreateDataset(UserId, txtDatasetName.Text, metadata, cboSheet.Text,wsFile);
+                //string newDatasetId = datasetModel.GetDatasetId(UserId, txtDatasetName.Text);
+                
+                //datasetModel.AddFileFromWorkspace(UserId, newDatasetId, wsFile);
+                //FileDataset fileDs = datasetModel.GetDatasetFileByName(newDatasetId, wsFile.Name);
+                //datasetModel.ProcessDatasetFile(fileDs.Name);
                 this.Close();
             }
             

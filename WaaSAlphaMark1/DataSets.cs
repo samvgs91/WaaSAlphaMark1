@@ -45,15 +45,18 @@ namespace WaaSAlphaMark1
             dgvDatasets.Columns[1].Visible = false;
             dgvDatasets.Columns[2].Width = 450;
             dgvDatasets.Columns[3].Width = 250;
-            dgvDatasets.Columns[4].Visible = false;
+            dgvDatasets.Columns[4].Width = 250;
             dgvDatasets.Columns[5].Visible = false;
-            dgvDatasets.Columns[6].Visible = false;
-            dgvDatasets.Columns[7].Visible = false;
-            dgvDatasets.Columns[8].Width = 350;
-            dgvDatasets.Columns[9].Visible = false;
+            //dgvDatasets.Columns[6].Visible = false;
+            //dgvDatasets.Columns[4].Visible = false;
+            //dgvDatasets.Columns[5].Visible = false;
+            //dgvDatasets.Columns[6].Visible = false;
+            //dgvDatasets.Columns[7].Visible = false;
+            //dgvDatasets.Columns[8].Width = 350;
+            //dgvDatasets.Columns[9].Visible = false;
 
-            dgvDatasets.Columns[3].DisplayIndex = 8;
-            dgvDatasets.Columns[8].DisplayIndex = 3;
+            //dgvDatasets.Columns[3].DisplayIndex = 8;
+            //dgvDatasets.Columns[8].DisplayIndex = 3;
 
 
         }
