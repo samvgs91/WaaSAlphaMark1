@@ -136,6 +136,43 @@ namespace WaaSDataAccess
                 }
             }
         }
+
+        public Dataset GetDataset(string UserId, string DatasetId)
+        {
+            Dataset ds = new Dataset();
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "[WaaS].[USP_WAAS_GET_DATASET]";
+                    command.Parameters.AddWithValue("@userId", UserId);
+                    command.Parameters.AddWithValue("@datasetId", DatasetId);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ds.Id = reader.GetString(0);
+                            ds.UserId = reader.GetString(1);
+                            ds.Name = reader.GetString(2);
+                            ds.CreateOn = reader.GetDateTime(3);
+                            ds.LastModifiedOn = reader.GetDateTime(4);
+                            ds.IsDeleted = Convert.ToBoolean(reader.GetInt16(5));
+                            ds.Files = reader.GetInt32(6);
+                            ds.RowCount = reader.GetInt32(7);
+                            ds.SizeKB = reader.GetInt32(8);
+                        }
+
+                        
+                    }
+
+                }
+            }
+            return ds;
+        }
         public bool InsertDataSetMetadata(DataTable metadata,string datasetId)
         {
             using (var connection = GetConnection())

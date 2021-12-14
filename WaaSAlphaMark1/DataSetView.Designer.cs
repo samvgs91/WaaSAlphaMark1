@@ -54,11 +54,11 @@ namespace WaaSAlphaMark1
             this.label1 = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.dgvWorkspace = new System.Windows.Forms.DataGridView();
+            this.dgvFiles = new System.Windows.Forms.DataGridView();
             this.pnlTopOptions.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWorkspace)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
             this.SuspendLayout();
             // 
             // adomdCommand1
@@ -121,7 +121,7 @@ namespace WaaSAlphaMark1
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lblFileName);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.dgvWorkspace);
+            this.panel1.Controls.Add(this.dgvFiles);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 100);
             this.panel1.Name = "panel1";
@@ -358,18 +358,18 @@ namespace WaaSAlphaMark1
             this.label4.Size = new System.Drawing.Size(950, 1);
             this.label4.TabIndex = 4;
             // 
-            // dgvWorkspace
+            // dgvFiles
             // 
-            this.dgvWorkspace.AllowUserToAddRows = false;
-            this.dgvWorkspace.AllowUserToDeleteRows = false;
-            this.dgvWorkspace.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
-            this.dgvWorkspace.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvWorkspace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvWorkspace.ColumnHeadersVisible = false;
-            this.dgvWorkspace.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
-            this.dgvWorkspace.Location = new System.Drawing.Point(30, 136);
-            this.dgvWorkspace.Name = "dgvWorkspace";
-            this.dgvWorkspace.ReadOnly = true;
+            this.dgvFiles.AllowUserToAddRows = false;
+            this.dgvFiles.AllowUserToDeleteRows = false;
+            this.dgvFiles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.dgvFiles.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvFiles.ColumnHeadersVisible = false;
+            this.dgvFiles.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.dgvFiles.Location = new System.Drawing.Point(30, 136);
+            this.dgvFiles.Name = "dgvFiles";
+            this.dgvFiles.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -377,17 +377,17 @@ namespace WaaSAlphaMark1
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvWorkspace.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvWorkspace.RowHeadersVisible = false;
+            this.dgvFiles.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvFiles.RowHeadersVisible = false;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Franklin Gothic Demi", 8.25F);
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(240)))), ((int)(((byte)(254)))));
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
-            this.dgvWorkspace.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvWorkspace.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvWorkspace.Size = new System.Drawing.Size(950, 191);
-            this.dgvWorkspace.TabIndex = 2;
+            this.dgvFiles.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFiles.Size = new System.Drawing.Size(950, 191);
+            this.dgvFiles.TabIndex = 2;
             // 
             // DatasetView
             // 
@@ -404,7 +404,7 @@ namespace WaaSAlphaMark1
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWorkspace)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -414,7 +414,7 @@ namespace WaaSAlphaMark1
         private Microsoft.AnalysisServices.AdomdClient.AdomdCommand adomdCommand1;
         private System.Windows.Forms.Panel pnlTopOptions;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dgvWorkspace;
+        private System.Windows.Forms.DataGridView dgvFiles;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private FontAwesome.Sharp.IconButton ibtNewDataset;

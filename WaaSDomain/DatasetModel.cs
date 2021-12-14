@@ -72,6 +72,15 @@ namespace WaaSDomain
             return datasetDao.GetDatasets(UserId);
         }
 
+        public Dataset GetDataset(string userId, string datasetId)
+        {
+            return datasetDao.GetDataset(userId, datasetId);
+        }
+        public List<FileDataset> GetFiles(string UserId, string DatasetId)
+        {
+            return datasetDao.GetDatasetFiles(DatasetId, UserId);
+        }
+
         public void ProcessDatasetFile(string DatasetFileId)
         { 
             Dictionary<string, object> parameters = new Dictionary<string, object>

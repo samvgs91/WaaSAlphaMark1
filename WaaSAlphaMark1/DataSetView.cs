@@ -17,18 +17,23 @@ namespace WaaSAlphaMark1
     {
 
         private string UserId;
-        private string StartedFileId;
+        private string DatasetId;
+        private DatasetModel datasetModel;
+        private Dataset ds;
 
-        public DatasetView(string userId,string fileId)
+        public DatasetView(string userId,string datasetId)
         {
             this.UserId = userId;
-            this.StartedFileId = fileId;
+            this.DatasetId = datasetId;
+            datasetModel = new DatasetModel();
+            ds = datasetModel.GetDataset(userId, datasetId);
             InitializeComponent();
-            //FillWorkspaceFiles();
+            FillDatasetFiles();
 
-            if(StartedFileId != null)
+            if (datasetId != null)
             {
-                this.lblDatasetName.Text = "Dataset > Demo >" + StartedFileId;
+                //this.lblDatasetName.Text = "Dataset > Demo >" + StartedFileId;
+                this.lblDatasetName.Text = "Dataset > " + ds.Name;
             }
         }
 
@@ -37,29 +42,27 @@ namespace WaaSAlphaMark1
 
         }
 
-        private void FillWorkspaceFiles()
+        private void FillDatasetFiles()
         {
 
-            WorkspaceModel workspaceModel = new WorkspaceModel();
+            //WorkspaceModel workspaceModel = new WorkspaceModel();
 
             //List<FileWorkspace> files = workspaceModel.GetWorkspaceFiles(UserId);
-            dgvWorkspace.DataSource = workspaceModel.GetWorkspaceFiles(UserId);
+            dgvFiles.DataSource = datasetModel.GetFiles(UserId,DatasetId);
 
 
-            dgvWorkspace.Columns[0].Visible = false;
-            dgvWorkspace.Columns[1].Visible = false;
-            dgvWorkspace.Columns[2].Width = 450;
-            dgvWorkspace.Columns[3].Width = 250;
-            dgvWorkspace.Columns[4].Visible = false;
-            dgvWorkspace.Columns[5].Visible = false;
-            dgvWorkspace.Columns[6].Visible = false;
-            dgvWorkspace.Columns[7].Visible = false;
-            dgvWorkspace.Columns[8].Width = 350;
-            dgvWorkspace.Columns[9].Visible = false;
-
-            dgvWorkspace.Columns[3].DisplayIndex = 8;
-            dgvWorkspace.Columns[8].DisplayIndex = 3;
-
+            dgvFiles.Columns[0].Visible = false;
+            dgvFiles.Columns[1].Visible = false;
+            dgvFiles.Columns[2].Visible = false;
+            dgvFiles.Columns[3].Width = 250;
+            dgvFiles.Columns[4].Width = 250;
+            dgvFiles.Columns[5].Visible = false;
+            dgvFiles.Columns[6].Visible = false;
+            dgvFiles.Columns[7].Visible = false;
+            dgvFiles.Columns[8].Visible = false;
+            dgvFiles.Columns[9].Width = 250;
+            dgvFiles.Columns[10].Width = 250;
+            dgvFiles.Columns[11].Visible = false;
 
         }
 

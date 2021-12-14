@@ -20,6 +20,7 @@ namespace WaaSAlphaMark1
         private Form currentChildForm;
         private string UserId;
         private string SelectedWorkspaceFileId;
+        private string SelectedDatasetId;
 
         public Main_Portal(string userId)
         {
@@ -91,25 +92,25 @@ namespace WaaSAlphaMark1
             }
         }
 
-        private void OpenChildForm(Form childForm)
-        {
-            if (currentChildForm != null)
-            {
-                currentChildForm.Close();
-            }
-            using (childForm)
-            {
-                currentChildForm = childForm;
-                childForm.TopLevel = false;
-                childForm.FormBorderStyle = FormBorderStyle.None;
-                childForm.Dock = DockStyle.Fill;
-                childForm.Size = pnlDesktop.Size;
-                pnlDesktop.Controls.Add(childForm);
-                pnlDesktop.Tag = childForm;
-                childForm.BringToFront();
-                childForm.Show();
-            }
-        }
+        //private void OpenChildForm(Form childForm)
+        //{
+        //    if (currentChildForm != null)
+        //    {
+        //        currentChildForm.Close();
+        //    }
+        //    using (childForm)
+        //    {
+        //        currentChildForm = childForm;
+        //        childForm.TopLevel = false;
+        //        childForm.FormBorderStyle = FormBorderStyle.None;
+        //        childForm.Dock = DockStyle.Fill;
+        //        childForm.Size = pnlDesktop.Size;
+        //        pnlDesktop.Controls.Add(childForm);
+        //        pnlDesktop.Tag = childForm;
+        //        childForm.BringToFront();
+        //        childForm.Show();
+        //    }
+        //}
 
         private void ibtnWorkspace_Click(object sender, EventArgs e)
         {
@@ -141,7 +142,7 @@ namespace WaaSAlphaMark1
 
         }
 
-        private void OpenDataSet()
+        private void OpenDataSets()
         {
             DataSets childForm = new DataSets(UserId);
             if (currentChildForm != null)
@@ -155,6 +156,7 @@ namespace WaaSAlphaMark1
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
             childForm.Size = pnlDesktop.Size;
+            childForm.Selected += new EventHandler(GetDatasetView);
             pnlDesktop.Controls.Add(childForm);
             pnlDesktop.Tag = childForm;
             childForm.BringToFront();
@@ -169,6 +171,17 @@ namespace WaaSAlphaMark1
                 SelectedWorkspaceFileId = frm.GetSelectedFile();
                 //MessageBox.Show("Id Seleceted from Child Form is: " + SelectedWorkspaceFileId);
                 OpenDataSetViewFromFile();
+            }
+        }
+
+        private void GetDatasetView(object sender, EventArgs e)
+        {
+            DataSets frm = sender as DataSets;
+            if (frm != null)
+            {
+                SelectedDatasetId = frm.GetSelectedDatasetId();
+                //MessageBox.Show("Id Seleceted from Child Form is: " + SelectedWorkspaceFileId);
+                OpenDataSetView();
             }
         }
 
@@ -193,19 +206,42 @@ namespace WaaSAlphaMark1
             SelectedWorkspaceFileId = null;
         }
 
+
+        private void OpenDataSetView()
+        {
+            DatasetView childForm = new DatasetView(UserId, SelectedDatasetId);
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childForm.Size = pnlDesktop.Size;
+           // childForm.Selected += new EventHandler(GetWorkspaceFile);
+            pnlDesktop.Controls.Add(childForm);
+            pnlDesktop.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+            childForm.FormClosed += ResetWorkSpace;
+            SelectedDatasetId = null;
+            SelectedWorkspaceFileId = null;
+        }
+
         private void ResetWorkSpace(object sender, FormClosedEventArgs e)
         {
             //ActivateButton(sender, RGBColors.color2);
             //OpenChildForm(new Workspace(UserId));
             currentChildForm = null;
-            OpenDataSet();
+            OpenDataSets();
             //OpenWorkspace();
         }
 
         private void ibtnData_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color2);
-            OpenDataSet();
+            OpenDataSets();
         }
 
         private void ibtnModel_Click(object sender, EventArgs e)

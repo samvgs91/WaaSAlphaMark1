@@ -18,6 +18,9 @@ namespace WaaSAlphaMark1
 
         private string UserId;
         private int currentMouseOverRow;
+        private string SelectedDatasetId;
+        public event EventHandler Selected;
+
 
         public DataSets(string userId)
         {
@@ -91,7 +94,7 @@ namespace WaaSAlphaMark1
                 ContextMenu m = new ContextMenu();
                 m.MenuItems.Add(new MenuItem("Delete", DeleteFileOnClick));
                 m.MenuItems.Add(new MenuItem("Create Model", CreateModel));
-                m.MenuItems.Add(new MenuItem("Download", MenuOnClick));
+                m.MenuItems.Add(new MenuItem("Connect", MenuOnClick));
 
                 currentMouseOverRow = dgvDatasets.HitTest(e.X, e.Y).RowIndex;
 
@@ -105,6 +108,11 @@ namespace WaaSAlphaMark1
             }
         }
 
+        private void DatasetDetail(object sender, EventArgs args)
+        {
+            MessageBox.Show("I'm In!");
+        }
+
         private void DeleteFileOnClick(object sender, EventArgs args)
         {
             //TODO
@@ -116,6 +124,34 @@ namespace WaaSAlphaMark1
         private void MenuOnClick(object sender, EventArgs args)
         {
             //TODO
+        }
+
+        private void dgvDatasets_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+           // if (dgvWarehouseTableList.SelectedCells.Count > 0)
+           
+            if (dgvDatasets.SelectedRows.Count>0)
+            { 
+                int selectedRowIndex = dgvDatasets.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvDatasets.Rows[selectedRowIndex];
+                SelectedDatasetId = Convert.ToString(selectedRow.Cells["Id"].Value);
+                //EditTable(cellValue);
+               // MessageBox.Show("DatasetId: " + SelectedDatasetId);
+                this.Close();
+                SelectDataset(null);
+            }
+        }
+        protected virtual void SelectDataset(EventArgs e)
+        {
+            EventHandler eh = Selected;
+            if (eh != null)
+            {
+                eh(this, e);
+            }
+        }
+        public string GetSelectedDatasetId()
+        {
+            return SelectedDatasetId;
         }
     }
 }

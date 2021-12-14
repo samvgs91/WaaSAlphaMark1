@@ -39,15 +39,15 @@ namespace WaaSAlphaMark1
             this.pboxSearchIcon = new System.Windows.Forms.PictureBox();
             this.pboxSearchBox = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.ibtNewFile = new FontAwesome.Sharp.IconButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
             this.dgvDatasets = new System.Windows.Forms.DataGridView();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.pnlTopOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSearchBox)).BeginInit();
@@ -139,6 +139,39 @@ namespace WaaSAlphaMark1
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1120, 640);
             this.panel1.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.label7.Location = new System.Drawing.Point(795, 76);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(89, 21);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Row Count";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.label6.Location = new System.Drawing.Point(655, 76);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(73, 21);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Nro Files";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.label5.Location = new System.Drawing.Point(265, 76);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(91, 21);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Created On";
             // 
             // label4
             // 
@@ -242,39 +275,7 @@ namespace WaaSAlphaMark1
             this.dgvDatasets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDatasets.Size = new System.Drawing.Size(1120, 440);
             this.dgvDatasets.TabIndex = 2;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.label5.Location = new System.Drawing.Point(265, 76);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(91, 21);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Created On";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.label6.Location = new System.Drawing.Point(655, 76);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 21);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Nro Files";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.label7.Location = new System.Drawing.Point(795, 76);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 21);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Row Count";
+            this.dgvDatasets.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatasets_CellContentDoubleClick);
             // 
             // DataSets
             // 
