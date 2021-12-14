@@ -14,6 +14,9 @@ namespace WaaSEntities
         public DateTime CreateOn { get; set; }
         public DateTime LastModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
+        public int Files { get; set; }
+        public int RowCount { get; set; }
+        public int SizeKB { get; set; }
         public List<DatasetMetadata> columns { get; set; }
     }
 }

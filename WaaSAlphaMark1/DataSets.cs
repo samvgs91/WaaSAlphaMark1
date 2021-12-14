@@ -17,6 +17,7 @@ namespace WaaSAlphaMark1
     {
 
         private string UserId;
+        private int currentMouseOverRow;
 
         public DataSets(string userId)
         {
@@ -43,10 +44,13 @@ namespace WaaSAlphaMark1
 
             dgvDatasets.Columns[0].Visible = false;
             dgvDatasets.Columns[1].Visible = false;
-            dgvDatasets.Columns[2].Width = 450;
-            dgvDatasets.Columns[3].Width = 250;
-            dgvDatasets.Columns[4].Width = 250;
+            dgvDatasets.Columns[2].Width = 220;
+            dgvDatasets.Columns[3].Width = 200;
+            dgvDatasets.Columns[4].Width = 200;
             dgvDatasets.Columns[5].Visible = false;
+            dgvDatasets.Columns[6].Width = 150;
+            dgvDatasets.Columns[7].Width = 130;
+            dgvDatasets.Columns[8].Width = 130;
             //dgvDatasets.Columns[6].Visible = false;
             //dgvDatasets.Columns[4].Visible = false;
             //dgvDatasets.Columns[5].Visible = false;
@@ -77,6 +81,41 @@ namespace WaaSAlphaMark1
                 txtSearchFiles.Text = "Search in Workspace";
                 txtSearchFiles.ForeColor = System.Drawing.SystemColors.GrayText;
             }
+        }
+
+        private void DisplayFileOptions(object sender, MouseEventArgs e)
+        {
+            //TODO
+            if (e.Button == MouseButtons.Right)
+            {
+                ContextMenu m = new ContextMenu();
+                m.MenuItems.Add(new MenuItem("Delete", DeleteFileOnClick));
+                m.MenuItems.Add(new MenuItem("Create Model", CreateModel));
+                m.MenuItems.Add(new MenuItem("Download", MenuOnClick));
+
+                currentMouseOverRow = dgvDatasets.HitTest(e.X, e.Y).RowIndex;
+
+                //if (currentMouseOverRow >= 0)
+                //{
+                //    m.MenuItems.Add(new MenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
+                //}
+
+                m.Show(dgvDatasets, new Point(e.X, e.Y));
+
+            }
+        }
+
+        private void DeleteFileOnClick(object sender, EventArgs args)
+        {
+            //TODO
+        }
+        private void CreateModel(object sender, EventArgs args)
+        {
+            //TODO
+        }
+        private void MenuOnClick(object sender, EventArgs args)
+        {
+            //TODO
         }
     }
 }

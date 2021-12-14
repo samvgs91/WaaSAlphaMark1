@@ -123,6 +123,9 @@ namespace WaaSDataAccess
                             file.CreateOn = reader.GetDateTime(3);
                             file.LastModifiedOn = reader.GetDateTime(4);
                             file.IsDeleted = Convert.ToBoolean(reader.GetInt16(5));
+                            file.Files = reader.GetInt32(6);
+                            file.RowCount = reader.GetInt32(7);
+                            file.SizeKB = reader.GetInt32(8);
 
                             files.Add(file);
                         }
