@@ -48,7 +48,7 @@ namespace WaaSAlphaMark1
             this.label5 = new System.Windows.Forms.Label();
             this.iconButton3 = new FontAwesome.Sharp.IconButton();
             this.iconButton2 = new FontAwesome.Sharp.IconButton();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.icbLoadData = new FontAwesome.Sharp.IconButton();
             this.ibtNewDataset = new FontAwesome.Sharp.IconButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -115,7 +115,7 @@ namespace WaaSAlphaMark1
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.iconButton3);
             this.panel1.Controls.Add(this.iconButton2);
-            this.panel1.Controls.Add(this.iconButton1);
+            this.panel1.Controls.Add(this.icbLoadData);
             this.panel1.Controls.Add(this.ibtNewDataset);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -275,25 +275,26 @@ namespace WaaSAlphaMark1
             this.iconButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.iconButton2.UseVisualStyleBackColor = true;
             // 
-            // iconButton1
+            // icbLoadData
             // 
-            this.iconButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton1.Font = new System.Drawing.Font("Franklin Gothic Demi", 8F);
-            this.iconButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Upload;
-            this.iconButton1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.IconSize = 20;
-            this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.iconButton1.Location = new System.Drawing.Point(203, 18);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.iconButton1.Size = new System.Drawing.Size(122, 32);
-            this.iconButton1.TabIndex = 9;
-            this.iconButton1.Text = "Load Data";
-            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButton1.UseVisualStyleBackColor = true;
+            this.icbLoadData.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.icbLoadData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.icbLoadData.Font = new System.Drawing.Font("Franklin Gothic Demi", 8F);
+            this.icbLoadData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.icbLoadData.IconChar = FontAwesome.Sharp.IconChar.Upload;
+            this.icbLoadData.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.icbLoadData.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.icbLoadData.IconSize = 20;
+            this.icbLoadData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.icbLoadData.Location = new System.Drawing.Point(203, 18);
+            this.icbLoadData.Name = "icbLoadData";
+            this.icbLoadData.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.icbLoadData.Size = new System.Drawing.Size(122, 32);
+            this.icbLoadData.TabIndex = 9;
+            this.icbLoadData.Text = "Load Data";
+            this.icbLoadData.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.icbLoadData.UseVisualStyleBackColor = true;
+            this.icbLoadData.Click += new System.EventHandler(this.icbLoadData_Click);
             // 
             // ibtNewDataset
             // 
@@ -379,6 +380,7 @@ namespace WaaSAlphaMark1
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvFiles.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvFiles.RowHeadersVisible = false;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Franklin Gothic Demi", 8.25F);
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
@@ -422,7 +424,7 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label lblFileName;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton2;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton icbLoadData;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;

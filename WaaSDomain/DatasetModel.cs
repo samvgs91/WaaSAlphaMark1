@@ -113,9 +113,24 @@ namespace WaaSDomain
             return true;
         }
 
-        public bool AddNewFile()
+        public bool AddNewFile(string fileName, string sourcePath, string datasetId, string userId, string size)
         {
-            return true;
+            string accountName = fileSto.GetAccount();
+            string containerName = fileSto.GetContainer();
+            //string userId = destinyPath;
+            string path = containerName + "/" + userId + "/"+ datasetId;
+            bool dsFileBool = datasetDao.InsertDatasetFile(userId, datasetId, fileName, accountName, containerName, path,size);
+            bool fsFileBool = fileSto.AddFile(fileName, userId, datasetId, sourcePath, containerName);
+
+            if(dsFileBool && fsFileBool)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
     }

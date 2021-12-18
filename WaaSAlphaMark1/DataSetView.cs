@@ -52,17 +52,31 @@ namespace WaaSAlphaMark1
 
 
             dgvFiles.Columns[0].Visible = false;
-            dgvFiles.Columns[1].Visible = false;
+            //dgvFiles.Columns[1].Width = 350; //Status
             dgvFiles.Columns[2].Visible = false;
-            dgvFiles.Columns[3].Width = 250;
-            dgvFiles.Columns[4].Width = 250;
-            dgvFiles.Columns[5].Visible = false;
+            dgvFiles.Columns[3].Visible = false;
+            //dgvFiles.Columns[4].Width = 150; // Name
+            //dgvFiles.Columns[5].Width = 150; // Size
             dgvFiles.Columns[6].Visible = false;
             dgvFiles.Columns[7].Visible = false;
             dgvFiles.Columns[8].Visible = false;
-            dgvFiles.Columns[9].Width = 250;
-            dgvFiles.Columns[10].Width = 250;
+            dgvFiles.Columns[9].Visible = false;
+            //dgvFiles.Columns[10].Width = 250; //Date Mod
             dgvFiles.Columns[11].Visible = false;
+
+            dgvFiles.Columns["Name"].DisplayIndex = 0;
+            dgvFiles.Columns["LastModifiedOn"].DisplayIndex = 1;
+            dgvFiles.Columns["Size"].DisplayIndex =2;
+            dgvFiles.Columns["Status"].DisplayIndex = 3;
+
+            dgvFiles.Columns["Name"].Width = 380;
+            dgvFiles.Columns["LastModifiedOn"].Width = 220;
+            dgvFiles.Columns["Size"].Width = 200;
+            dgvFiles.Columns["Status"].Width = 140;
+            //dgvFiles.Columns[10].DisplayIndex = 3;
+            //dgvFiles.Columns[10].DisplayIndex = 4;
+            //dgvFiles.Columns[5].DisplayIndex = 4;
+            //dgvFiles.Columns["Status"].DisplayIndex = 10;
 
         }
 
@@ -82,6 +96,35 @@ namespace WaaSAlphaMark1
             //    txtSearchFiles.Text = "Search in Workspace";
             //    txtSearchFiles.ForeColor = System.Drawing.SystemColors.GrayText;
             //}
+        }
+
+        private void icbLoadData_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();//open dialog to choose file
+            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)//if there is a file choosen by the user
+            {
+                string filePath = file.FileName;//get the path of the file
+                string fileName = file.SafeFileName;
+                string fileExt = Path.GetExtension(filePath);//get the file extension
+                FileInfo fileInf = new FileInfo(filePath);
+                long fileSize = fileInf.Length;
+                if (fileExt.CompareTo(".xls") == 0 || fileExt.CompareTo(".xlsx") == 0)
+                {
+                    try
+                    {
+                        datasetModel.AddNewFile(fileName, filePath, DatasetId, UserId, fileSize.ToString());
+                        FillDatasetFiles();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please choose .xls or .xlsx file only.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);//custom messageBox to show error
+                }
+            }
         }
     }
 }
