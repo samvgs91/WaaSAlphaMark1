@@ -126,5 +126,19 @@ namespace WaaSAlphaMark1
                 }
             }
         }
+
+        private void icbProcessDatasetFile_Click(object sender, EventArgs e)
+        {
+            //TODO
+            if (dgvFiles.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgvFiles.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvFiles.Rows[selectedrowindex];
+                string datasetFileId = Convert.ToString(selectedRow.Cells["Id"].Value);
+                datasetModel.ProcessDatasetFile(datasetFileId);
+                FillDatasetFiles();
+            }
+          
+        }
     }
 }

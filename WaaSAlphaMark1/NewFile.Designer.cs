@@ -34,6 +34,7 @@ namespace WaaSAlphaMark1
             this.btnSelectFile = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLoadFile = new System.Windows.Forms.Button();
+            this.cboSheet = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtFileName
@@ -74,18 +75,29 @@ namespace WaaSAlphaMark1
             // 
             // btnLoadFile
             // 
-            this.btnLoadFile.Location = new System.Drawing.Point(209, 404);
+            this.btnLoadFile.Location = new System.Drawing.Point(256, 404);
             this.btnLoadFile.Name = "btnLoadFile";
             this.btnLoadFile.Size = new System.Drawing.Size(75, 23);
             this.btnLoadFile.TabIndex = 4;
             this.btnLoadFile.Text = "Load";
             this.btnLoadFile.UseVisualStyleBackColor = true;
             // 
+            // cboSheet
+            // 
+            this.cboSheet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(243)))), ((int)(((byte)(244)))));
+            this.cboSheet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSheet.FormattingEnabled = true;
+            this.cboSheet.Location = new System.Drawing.Point(95, 404);
+            this.cboSheet.Name = "cboSheet";
+            this.cboSheet.Size = new System.Drawing.Size(155, 21);
+            this.cboSheet.TabIndex = 18;
+            // 
             // NewFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.cboSheet);
             this.Controls.Add(this.btnLoadFile);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSelectFile);
@@ -105,5 +117,6 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Button btnSelectFile;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnLoadFile;
+        private System.Windows.Forms.ComboBox cboSheet;
     }
 }

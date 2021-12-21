@@ -10,5 +10,6 @@ namespace WaaSEntities
     {
         public string DatasetId { get; set; }
         public string Status { get; set; }
+        public string SheetName { get; set; }
     }
 }

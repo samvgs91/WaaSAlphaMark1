@@ -31,7 +31,7 @@ namespace WaaSDomain
                     string fileSize = sourceFile.Size.ToString();
                     string dsFilePath = sourceFile.Path + "/" + datasetId;
 
-                    bool dsFilebool = datasetDao.InsertDatasetFile(UserId, datasetId, sourceFile.Name, sourceFile.StorageAccountName, sourceFile.Container, dsFilePath, fileSize);
+                    bool dsFilebool = datasetDao.InsertDatasetFile(UserId, datasetId, sourceFile.Name, sheetName, sourceFile.StorageAccountName, sourceFile.Container, dsFilePath, fileSize);
                     bool fsFilebool = fileSto.CopyFile(sourceFile.Name, sourceFile.Path, sourceFile.Path, datasetId, sourceFile.Container);
 
                     FileDataset fileDataset = datasetDao.GetDatasetFileByName(datasetId, sourceFile.Name);
@@ -89,6 +89,7 @@ namespace WaaSDomain
             };
 
             adfProcessManager.LauchADFPipeline(parameters, filePipelineProcessor);
+            datasetDao.UpdateDatasetFile(DatasetFileId);
         }
 
         public string GetDatasetId(string UserId, string DatasetName)

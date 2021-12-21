@@ -35,7 +35,6 @@ namespace WaaSAlphaMark1
 
         private void LoadMainConfiguration()
         {
-
             WorkspaceModel workspaceModel = new WorkspaceModel();
             string SelectedSheet;
   
@@ -47,7 +46,6 @@ namespace WaaSAlphaMark1
 
             dgvMetadata.DataSource = workspaceModel.GetMetadataFromFile(StartedFileId, SelectedSheet);
 
-
             dgvMetadata.Columns["SourceColumn"].Width = 180;
             dgvMetadata.Columns["SourceColumn"].ReadOnly = true;
             dgvMetadata.Columns["ColumnName"].Width = 180;
@@ -58,7 +56,6 @@ namespace WaaSAlphaMark1
             dgvMetadata.Columns["ColumnModelType"].ReadOnly = true;
             dgvMetadata.Columns["ColumnMetricType"].Width = 210;
             dgvMetadata.Columns["ColumnMetricType"].ReadOnly = true;
-
         }
 
         private void dgvMetadata_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -68,11 +65,8 @@ namespace WaaSAlphaMark1
 
                 DataGridViewComboBoxCell comboBoxCell = new DataGridViewComboBoxCell();
 
-                //int selectedrowindex = dgvFiles.SelectedCells[e.].RowIndex;
-                //DataGridViewRow selectedRow = dgvFiles.Rows[selectedrowindex];
-                //string colTypeName = Convert.ToString(selectedRow.Cells["ColumnModelType"].Value);
                 string colTypeName = "";
-                //var cell = dgvMetadata.Rows[e.RowIndex].Cells[4];
+
 
                 if (e.ColumnIndex > 0)
                 {
