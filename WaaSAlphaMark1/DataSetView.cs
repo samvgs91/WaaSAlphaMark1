@@ -100,31 +100,8 @@ namespace WaaSAlphaMark1
 
         private void icbLoadData_Click(object sender, EventArgs e)
         {
-            OpenFileDialog file = new OpenFileDialog();//open dialog to choose file
-            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)//if there is a file choosen by the user
-            {
-                string filePath = file.FileName;//get the path of the file
-                string fileName = file.SafeFileName;
-                string fileExt = Path.GetExtension(filePath);//get the file extension
-                FileInfo fileInf = new FileInfo(filePath);
-                long fileSize = fileInf.Length;
-                if (fileExt.CompareTo(".xls") == 0 || fileExt.CompareTo(".xlsx") == 0)
-                {
-                    try
-                    {
-                        datasetModel.AddNewFile(fileName, filePath, DatasetId, UserId, fileSize.ToString());
-                        FillDatasetFiles();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message.ToString());
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Please choose .xls or .xlsx file only.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);//custom messageBox to show error
-                }
-            }
+            NewFile frm = new NewFile(DatasetId,UserId);
+            frm.Show();
         }
 
         private void icbProcessDatasetFile_Click(object sender, EventArgs e)

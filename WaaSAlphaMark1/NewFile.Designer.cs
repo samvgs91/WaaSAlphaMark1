@@ -29,12 +29,16 @@ namespace WaaSAlphaMark1
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtFileName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSelectFile = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnLoadFile = new System.Windows.Forms.Button();
             this.cboSheet = new System.Windows.Forms.ComboBox();
+            this.dgvData = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
             // txtFileName
@@ -81,6 +85,7 @@ namespace WaaSAlphaMark1
             this.btnLoadFile.TabIndex = 4;
             this.btnLoadFile.Text = "Load";
             this.btnLoadFile.UseVisualStyleBackColor = true;
+            this.btnLoadFile.Click += new System.EventHandler(this.btnLoadFile_Click);
             // 
             // cboSheet
             // 
@@ -91,12 +96,46 @@ namespace WaaSAlphaMark1
             this.cboSheet.Name = "cboSheet";
             this.cboSheet.Size = new System.Drawing.Size(155, 21);
             this.cboSheet.TabIndex = 18;
+            this.cboSheet.SelectionChangeCommitted += new System.EventHandler(this.cboSheet_SelectionChangeCommitted);
+            // 
+            // dgvData
+            // 
+            this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
+            this.dgvData.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.dgvData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvData.ColumnHeadersVisible = false;
+            this.dgvData.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.dgvData.Location = new System.Drawing.Point(4, 0);
+            this.dgvData.Name = "dgvData";
+            this.dgvData.ReadOnly = true;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvData.RowHeadersVisible = false;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Franklin Gothic Demi", 8.25F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(240)))), ((int)(((byte)(254)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
+            this.dgvData.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvData.Size = new System.Drawing.Size(772, 357);
+            this.dgvData.TabIndex = 19;
             // 
             // NewFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.dgvData);
             this.Controls.Add(this.cboSheet);
             this.Controls.Add(this.btnLoadFile);
             this.Controls.Add(this.label2);
@@ -105,6 +144,7 @@ namespace WaaSAlphaMark1
             this.Controls.Add(this.txtFileName);
             this.Name = "NewFile";
             this.Text = "NewFile";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,5 +158,6 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnLoadFile;
         private System.Windows.Forms.ComboBox cboSheet;
+        private System.Windows.Forms.DataGridView dgvData;
     }
 }
