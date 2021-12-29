@@ -84,12 +84,17 @@ namespace WaaSDomain
             return datasetDao.GetDatasetFiles(DatasetId, UserId);
         }
 
-        public DataTable GetDataSetData(string DatasetId)
+        public DataTable GetDataSetData(string UserId,string DatasetId)
         {
-            Dataset ds = datasetDao.GetDataset(DatasetId);
+            Dataset ds = datasetDao.GetDataset(UserId,DatasetId);
             List<(int, string, string)> cols = new List<(int, string, string)>();
 
-            ds.columns.ForEach(c => cols.Add((Int32.Parse(c.SourceColumn), c.ColumnName, c.ColumnDataType)));
+            for(var i = 0; i<ds.columns.Count; i++)
+            {
+                cols.Add((Int32.Parse(ds.columns[i].SourceColumn), ds.columns[i].ColumnName, ds.columns[i].ColumnDataType));
+            }
+
+            //ds.columns.ForEach(c => cols.Add((Int32.Parse(c.SourceColumn), c.ColumnName, c.ColumnDataType)));
 
             return datasetDao.GetDatasetData(DatasetId,cols);
         }

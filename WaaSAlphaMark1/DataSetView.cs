@@ -156,7 +156,10 @@ namespace WaaSAlphaMark1
 
         private void ibtConnect_Click(object sender, EventArgs e)
         {
-          //TODO
+            //TODO
+
+            DatasetDataTest frm = new DatasetDataTest(UserId,DatasetId);
+            frm.Show();
         }
     }
 }

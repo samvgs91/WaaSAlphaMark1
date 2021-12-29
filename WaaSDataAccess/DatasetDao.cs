@@ -213,7 +213,7 @@ namespace WaaSDataAccess
 
             for(var i = 0; i<cols.Count; i++)
             {
-                switch(cols[i].Item2)
+                switch(cols[i].Item3)
                 {
                     case "String":
                         dt.Columns.Add(cols[i].Item2, typeof(string));
@@ -245,16 +245,15 @@ namespace WaaSDataAccess
                         while (reader.Read())
                         {
                             DataRow rw = dt.NewRow();
-
                             for (var i = 0; i < cols.Count; i++)
                             {
-                                switch (cols[i].Item2)
+                                switch (cols[i].Item3)
                                 {
                                     case "String":
                                         rw[i] = reader.GetString(i);
                                         break;
                                     case "Double":
-                                        rw[i] = reader.GetInt32(i);
+                                        rw[i] = Decimal.ToDouble(reader.GetDecimal(i));
                                         break;
                                     case "DateTime":
                                         rw[i] = reader.GetDateTime(i);
