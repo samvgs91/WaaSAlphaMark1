@@ -35,6 +35,8 @@ namespace WaaSAlphaMark1
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.adomdCommand1 = new Microsoft.AnalysisServices.AdomdClient.AdomdCommand();
             this.pnlTopOptions = new System.Windows.Forms.Panel();
+            this.lblSeparator = new System.Windows.Forms.Label();
+            this.lblDSGoBack = new System.Windows.Forms.Label();
             this.lblDatasetName = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -44,12 +46,12 @@ namespace WaaSAlphaMark1
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvMetadata = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.iconButton3 = new FontAwesome.Sharp.IconButton();
             this.icbProcessDatasetFile = new FontAwesome.Sharp.IconButton();
             this.icbLoadData = new FontAwesome.Sharp.IconButton();
-            this.ibtNewDataset = new FontAwesome.Sharp.IconButton();
+            this.ibtConnect = new FontAwesome.Sharp.IconButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
@@ -57,7 +59,7 @@ namespace WaaSAlphaMark1
             this.dgvFiles = new System.Windows.Forms.DataGridView();
             this.pnlTopOptions.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,6 +75,8 @@ namespace WaaSAlphaMark1
             // pnlTopOptions
             // 
             this.pnlTopOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.pnlTopOptions.Controls.Add(this.lblSeparator);
+            this.pnlTopOptions.Controls.Add(this.lblDSGoBack);
             this.pnlTopOptions.Controls.Add(this.lblDatasetName);
             this.pnlTopOptions.Controls.Add(this.label3);
             this.pnlTopOptions.Dock = System.Windows.Forms.DockStyle.Top;
@@ -81,16 +85,39 @@ namespace WaaSAlphaMark1
             this.pnlTopOptions.Size = new System.Drawing.Size(1120, 100);
             this.pnlTopOptions.TabIndex = 0;
             // 
+            // lblSeparator
+            // 
+            this.lblSeparator.AutoSize = true;
+            this.lblSeparator.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
+            this.lblSeparator.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.lblSeparator.Location = new System.Drawing.Point(122, 33);
+            this.lblSeparator.Name = "lblSeparator";
+            this.lblSeparator.Size = new System.Drawing.Size(19, 21);
+            this.lblSeparator.TabIndex = 22;
+            this.lblSeparator.Text = ">";
+            // 
+            // lblDSGoBack
+            // 
+            this.lblDSGoBack.AutoSize = true;
+            this.lblDSGoBack.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
+            this.lblDSGoBack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.lblDSGoBack.Location = new System.Drawing.Point(49, 33);
+            this.lblDSGoBack.Name = "lblDSGoBack";
+            this.lblDSGoBack.Size = new System.Drawing.Size(67, 21);
+            this.lblDSGoBack.TabIndex = 21;
+            this.lblDSGoBack.Text = "Dataset";
+            this.lblDSGoBack.Click += new System.EventHandler(this.lblDSGoBack_Click);
+            // 
             // lblDatasetName
             // 
             this.lblDatasetName.AutoSize = true;
             this.lblDatasetName.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F);
             this.lblDatasetName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.lblDatasetName.Location = new System.Drawing.Point(36, 33);
+            this.lblDatasetName.Location = new System.Drawing.Point(155, 33);
             this.lblDatasetName.Name = "lblDatasetName";
-            this.lblDatasetName.Size = new System.Drawing.Size(125, 21);
+            this.lblDatasetName.Size = new System.Drawing.Size(70, 21);
             this.lblDatasetName.TabIndex = 20;
-            this.lblDatasetName.Text = "Dataset > Demo";
+            this.lblDatasetName.Text = "DSDemo";
             // 
             // label3
             // 
@@ -111,12 +138,12 @@ namespace WaaSAlphaMark1
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.dataGridView1);
+            this.panel1.Controls.Add(this.dgvMetadata);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.iconButton3);
             this.panel1.Controls.Add(this.icbProcessDatasetFile);
             this.panel1.Controls.Add(this.icbLoadData);
-            this.panel1.Controls.Add(this.ibtNewDataset);
+            this.panel1.Controls.Add(this.ibtConnect);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lblFileName);
@@ -193,18 +220,18 @@ namespace WaaSAlphaMark1
             this.label6.Size = new System.Drawing.Size(950, 1);
             this.label6.TabIndex = 14;
             // 
-            // dataGridView1
+            // dgvMetadata
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridView1.ColumnHeadersVisible = false;
-            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
-            this.dataGridView1.Location = new System.Drawing.Point(30, 398);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
+            this.dgvMetadata.AllowUserToAddRows = false;
+            this.dgvMetadata.AllowUserToDeleteRows = false;
+            this.dgvMetadata.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.dgvMetadata.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvMetadata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvMetadata.ColumnHeadersVisible = false;
+            this.dgvMetadata.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
+            this.dgvMetadata.Location = new System.Drawing.Point(30, 398);
+            this.dgvMetadata.Name = "dgvMetadata";
+            this.dgvMetadata.ReadOnly = true;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -212,17 +239,18 @@ namespace WaaSAlphaMark1
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView1.RowHeadersVisible = false;
+            this.dgvMetadata.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgvMetadata.RowHeadersVisible = false;
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(243)))), ((int)(((byte)(239)))));
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Franklin Gothic Demi", 8.25F);
             dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(240)))), ((int)(((byte)(254)))));
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(94)))), ((int)(((byte)(106)))));
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle10;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(950, 207);
-            this.dataGridView1.TabIndex = 13;
+            this.dgvMetadata.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvMetadata.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvMetadata.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMetadata.Size = new System.Drawing.Size(950, 207);
+            this.dgvMetadata.TabIndex = 13;
             // 
             // label5
             // 
@@ -297,25 +325,26 @@ namespace WaaSAlphaMark1
             this.icbLoadData.UseVisualStyleBackColor = true;
             this.icbLoadData.Click += new System.EventHandler(this.icbLoadData_Click);
             // 
-            // ibtNewDataset
+            // ibtConnect
             // 
-            this.ibtNewDataset.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewDataset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ibtNewDataset.Font = new System.Drawing.Font("Franklin Gothic Demi", 8F);
-            this.ibtNewDataset.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewDataset.IconChar = FontAwesome.Sharp.IconChar.Plug;
-            this.ibtNewDataset.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
-            this.ibtNewDataset.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibtNewDataset.IconSize = 20;
-            this.ibtNewDataset.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ibtNewDataset.Location = new System.Drawing.Point(30, 18);
-            this.ibtNewDataset.Name = "ibtNewDataset";
-            this.ibtNewDataset.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.ibtNewDataset.Size = new System.Drawing.Size(122, 32);
-            this.ibtNewDataset.TabIndex = 5;
-            this.ibtNewDataset.Text = "Connect";
-            this.ibtNewDataset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.ibtNewDataset.UseVisualStyleBackColor = true;
+            this.ibtConnect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.ibtConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ibtConnect.Font = new System.Drawing.Font("Franklin Gothic Demi", 8F);
+            this.ibtConnect.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.ibtConnect.IconChar = FontAwesome.Sharp.IconChar.Plug;
+            this.ibtConnect.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(76)))), ((int)(((byte)(99)))));
+            this.ibtConnect.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibtConnect.IconSize = 20;
+            this.ibtConnect.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ibtConnect.Location = new System.Drawing.Point(30, 18);
+            this.ibtConnect.Name = "ibtConnect";
+            this.ibtConnect.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.ibtConnect.Size = new System.Drawing.Size(122, 32);
+            this.ibtConnect.TabIndex = 5;
+            this.ibtConnect.Text = "Connect";
+            this.ibtConnect.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ibtConnect.UseVisualStyleBackColor = true;
+            this.ibtConnect.Click += new System.EventHandler(this.ibtConnect_Click);
             // 
             // label2
             // 
@@ -406,7 +435,7 @@ namespace WaaSAlphaMark1
             this.pnlTopOptions.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiles)).EndInit();
             this.ResumeLayout(false);
 
@@ -420,7 +449,7 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.DataGridView dgvFiles;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private FontAwesome.Sharp.IconButton ibtNewDataset;
+        private FontAwesome.Sharp.IconButton ibtConnect;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblFileName;
         private FontAwesome.Sharp.IconButton iconButton3;
@@ -430,11 +459,13 @@ namespace WaaSAlphaMark1
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvMetadata;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblDatasetName;
+        private System.Windows.Forms.Label lblDSGoBack;
+        private System.Windows.Forms.Label lblSeparator;
     }
 }

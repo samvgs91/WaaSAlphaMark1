@@ -169,8 +169,108 @@ namespace WaaSDataAccess
                     }
 
                 }
+
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "[WaaS].[USP_WAAS_GET_DATASET_METADATA]";
+                    command.Parameters.AddWithValue("@datasetId", DatasetId);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    List<DatasetMetadata> columns = new List<DatasetMetadata>();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DatasetMetadata mtdata = new DatasetMetadata();
+
+                            mtdata.Id = reader.GetString(0);
+                            mtdata.DatasetId = reader.GetString(1);
+                            mtdata.SourceColumn = reader.GetString(2);
+                            mtdata.ColumnName = reader.GetString(3);
+                            mtdata.ColumnDataType = reader.GetString(4);
+                            mtdata.ColumnModelType = reader.GetString(5);
+                            mtdata.MetricAggFunction = reader.GetString(6);
+                            mtdata.CreateOn = reader.GetDateTime(7);
+                            mtdata.LastModifiedOn = reader.GetDateTime(8);
+                            mtdata.IsDeleted = Convert.ToBoolean(reader.GetInt16(9));
+
+                            columns.Add(mtdata);
+                        }
+
+                        ds.columns = columns;
+                    }
+
+                }
             }
             return ds;
+        }
+        public DataTable GetDatasetData(string DatasetId,List<(int,string,string)> cols)
+        {
+            //Creating structure
+            DataTable dt = new DataTable();
+
+            for(var i = 0; i<cols.Count; i++)
+            {
+                switch(cols[i].Item2)
+                {
+                    case "String":
+                        dt.Columns.Add(cols[i].Item2, typeof(string));
+                        break;
+                    case "Double":
+                        dt.Columns.Add(cols[i].Item2, typeof(Double));
+                        break;
+                    case "DateTime":
+                        dt.Columns.Add(cols[i].Item2, typeof(DateTime));
+                        break;
+                }
+
+            }
+
+            using (var connection = GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "[WaaS].[USP_WAAS_GET_DATASET_DATA]";
+                    command.Parameters.AddWithValue("@DatasetId", DatasetId);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    //List<Dataset> files = new List<Dataset>();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DataRow rw = dt.NewRow();
+
+                            for (var i = 0; i < cols.Count; i++)
+                            {
+                                switch (cols[i].Item2)
+                                {
+                                    case "String":
+                                        rw[i] = reader.GetString(i);
+                                        break;
+                                    case "Double":
+                                        rw[i] = reader.GetInt32(i);
+                                        break;
+                                    case "DateTime":
+                                        rw[i] = reader.GetDateTime(i);
+                                        break;
+                                }
+
+                            }
+
+                            dt.Rows.Add(rw);
+                        }
+                    }
+
+                }
+            }
+
+            return dt;
         }
         public bool InsertDataSetMetadata(DataTable metadata,string datasetId)
         {

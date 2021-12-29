@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using System.Data;
 using WaaSDataAccess;
 using WaaSEntities;
+
+using System.Security.Cryptography;
 
 namespace WaaSDomain
 {
@@ -81,6 +84,16 @@ namespace WaaSDomain
             return datasetDao.GetDatasetFiles(DatasetId, UserId);
         }
 
+        public DataTable GetDataSetData(string DatasetId)
+        {
+            Dataset ds = datasetDao.GetDataset(DatasetId);
+            List<(int, string, string)> cols = new List<(int, string, string)>();
+
+            ds.columns.ForEach(c => cols.Add((Int32.Parse(c.SourceColumn), c.ColumnName, c.ColumnDataType)));
+
+            return datasetDao.GetDatasetData(DatasetId,cols);
+        }
+
         public void ProcessDatasetFile(string DatasetFileId)
         { 
             Dictionary<string, object> parameters = new Dictionary<string, object>
@@ -102,13 +115,13 @@ namespace WaaSDomain
             return datasetDao.GetDatasetFileByName(DatasetId,FileName);
         }
 
-        private bool AddFileFromWorkspace(string UserId, string DatasetId, FileWorkspace sourceFile)
+        private bool AddFileFromWorkspace(string UserId, string DatasetId, FileWorkspace sourceFile, string SheetName)
         {
             string fileSize = sourceFile.Size.ToString();
             string dsFilePath = sourceFile.Path + "/" + DatasetId;
             
 
-            bool dsFilebool = datasetDao.InsertDatasetFile(UserId, DatasetId, sourceFile.Name, sourceFile.StorageAccountName , sourceFile.Container, dsFilePath, fileSize);
+            bool dsFilebool = datasetDao.InsertDatasetFile(UserId, DatasetId, sourceFile.Name, SheetName , sourceFile.StorageAccountName , sourceFile.Container, dsFilePath, fileSize);
             bool fsFilebool = fileSto.CopyFile(sourceFile.Name, sourceFile.Path, sourceFile.Path, DatasetId, sourceFile.Container);
 
             return true;
@@ -119,7 +132,7 @@ namespace WaaSDomain
             string accountName = fileSto.GetAccount();
             string containerName = fileSto.GetContainer();
             //string userId = destinyPath;
-            string path = containerName + "/" + userId + "/"+ datasetId;
+            string path =  userId + "/"+ datasetId;
             bool dsFileBool = datasetDao.InsertDatasetFile(userId, datasetId, fileName, sheetName, accountName, containerName, path,size);
             bool fsFileBool = fileSto.AddFile(fileName, userId, datasetId, sourcePath, containerName);
 
@@ -132,6 +145,15 @@ namespace WaaSDomain
                 return false;
             }
             
+        }
+
+        public string GetStringHashColumns(List<String> columns)
+        {
+            string concatColumns = "";
+            columns.ForEach(x => concatColumns += x.ToString());
+
+            using (HashAlgorithm algorithm = SHA256.Create())
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(concatColumns)).ToString();
         }
 
     }

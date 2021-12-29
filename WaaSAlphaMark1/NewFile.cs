@@ -138,6 +138,7 @@ namespace WaaSAlphaMark1
         {
             //TODO
             datasetModel.AddNewFile(fileName, SelectedSheet, filePath, datasetId, userId, fileSize.ToString());
+            this.Close();
         }
     }
 }

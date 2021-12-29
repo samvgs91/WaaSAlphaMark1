@@ -163,6 +163,12 @@ namespace WaaSAlphaMark1
             childForm.Show();
         }
 
+        private void ReturningToDatasetViews(object sender, EventArgs e)
+        {
+            //TODO
+            OpenDataSets();
+        }
+
         private void GetWorkspaceFile(object sender, EventArgs e)
         {
             Workspace frm = sender as Workspace;
@@ -219,13 +225,13 @@ namespace WaaSAlphaMark1
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
             childForm.Size = pnlDesktop.Size;
-           // childForm.Selected += new EventHandler(GetWorkspaceFile);
+            childForm.ReturnToDatasets += new EventHandler(ReturningToDatasetViews);
             pnlDesktop.Controls.Add(childForm);
             pnlDesktop.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
             childForm.FormClosed += ResetWorkSpace;
-            SelectedDatasetId = null;
+            //SelectedDatasetId = null;
             SelectedWorkspaceFileId = null;
         }
 

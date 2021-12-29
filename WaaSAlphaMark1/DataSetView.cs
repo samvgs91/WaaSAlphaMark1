@@ -20,6 +20,7 @@ namespace WaaSAlphaMark1
         private string DatasetId;
         private DatasetModel datasetModel;
         private Dataset ds;
+        public event EventHandler ReturnToDatasets;
 
         public DatasetView(string userId,string datasetId)
         {
@@ -33,7 +34,7 @@ namespace WaaSAlphaMark1
             if (datasetId != null)
             {
                 //this.lblDatasetName.Text = "Dataset > Demo >" + StartedFileId;
-                this.lblDatasetName.Text = "Dataset > " + ds.Name;
+                this.lblDatasetName.Text =  ds.Name;
             }
         }
 
@@ -51,18 +52,15 @@ namespace WaaSAlphaMark1
             dgvFiles.DataSource = datasetModel.GetFiles(UserId,DatasetId);
 
 
-            dgvFiles.Columns[0].Visible = false;
-            //dgvFiles.Columns[1].Width = 350; //Status
-            dgvFiles.Columns[2].Visible = false;
-            dgvFiles.Columns[3].Visible = false;
-            //dgvFiles.Columns[4].Width = 150; // Name
-            //dgvFiles.Columns[5].Width = 150; // Size
-            dgvFiles.Columns[6].Visible = false;
-            dgvFiles.Columns[7].Visible = false;
-            dgvFiles.Columns[8].Visible = false;
-            dgvFiles.Columns[9].Visible = false;
-            //dgvFiles.Columns[10].Width = 250; //Date Mod
-            dgvFiles.Columns[11].Visible = false;
+            dgvFiles.Columns["DatasetId"].Visible = false;
+            dgvFiles.Columns["SheetName"].Visible = false;
+            dgvFiles.Columns["Id"].Visible = false;
+            dgvFiles.Columns["UserId"].Visible = false;
+            dgvFiles.Columns["StorageAccountName"].Visible = false;
+            dgvFiles.Columns["Container"].Visible = false;
+            dgvFiles.Columns["Path"].Visible = false;
+            dgvFiles.Columns["CreateOn"].Visible = false;
+            dgvFiles.Columns["IsDeleted"].Visible = false;
 
             dgvFiles.Columns["Name"].DisplayIndex = 0;
             dgvFiles.Columns["LastModifiedOn"].DisplayIndex = 1;
@@ -77,6 +75,38 @@ namespace WaaSAlphaMark1
             //dgvFiles.Columns[10].DisplayIndex = 4;
             //dgvFiles.Columns[5].DisplayIndex = 4;
             //dgvFiles.Columns["Status"].DisplayIndex = 10;
+
+
+            dgvMetadata.DataSource = datasetModel.GetDataset(UserId, DatasetId).columns;
+
+            dgvMetadata.Columns["Id"].Visible = false;
+            dgvMetadata.Columns["DatasetId"].Visible = false;
+            dgvMetadata.Columns["CreateOn"].Visible = false;
+            dgvMetadata.Columns["LastModifiedOn"].Visible = false;
+            dgvMetadata.Columns["IsDeleted"].Visible = false;
+
+            dgvMetadata.Columns["SourceColumn"].DisplayIndex = 0;
+            dgvMetadata.Columns["ColumnName"].DisplayIndex = 2;
+            dgvMetadata.Columns["ColumnDataType"].DisplayIndex = 3;
+            dgvMetadata.Columns["ColumnModelType"].DisplayIndex = 4;
+            dgvMetadata.Columns["MetricAggFunction"].DisplayIndex = 5;
+
+            dgvMetadata.Columns["SourceColumn"].Width = 200;
+            dgvMetadata.Columns["ColumnName"].Width = 200;
+            dgvMetadata.Columns["ColumnDataType"].Width = 180;
+            dgvMetadata.Columns["ColumnModelType"].Width = 180;
+            dgvMetadata.Columns["MetricAggFunction"].Width = 180;
+
+            //public string Id { get; set; }
+            //public string DatasetId { get; set; }
+            //public string SourceColumn { get; set; }
+            //public string ColumnName { get; set; }
+            //public string ColumnDataType { get; set; }
+            //public string ColumnModelType { get; set; }
+            //public string MetricAggFunction { get; set; }
+            //public DateTime CreateOn { get; set; }
+            //public DateTime LastModifiedOn 
+            //public bool IsDeleted
 
         }
 
@@ -102,6 +132,7 @@ namespace WaaSAlphaMark1
         {
             NewFile frm = new NewFile(DatasetId,UserId);
             frm.Show();
+            FillDatasetFiles();
         }
 
         private void icbProcessDatasetFile_Click(object sender, EventArgs e)
@@ -116,6 +147,16 @@ namespace WaaSAlphaMark1
                 FillDatasetFiles();
             }
           
+        }
+
+        private void lblDSGoBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ibtConnect_Click(object sender, EventArgs e)
+        {
+          //TODO
         }
     }
 }

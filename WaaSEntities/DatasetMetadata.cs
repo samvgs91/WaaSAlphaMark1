@@ -9,6 +9,7 @@ namespace WaaSEntities
     public class DatasetMetadata
     {
         public string Id { get; set; }
+        public string DatasetId { get; set; }
         public string SourceColumn { get; set; }
         public string ColumnName { get; set; }
         public string ColumnDataType { get; set; }
