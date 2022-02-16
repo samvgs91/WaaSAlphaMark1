@@ -21,6 +21,7 @@ namespace WaaSAlphaMark1
         private DatasetModel datasetModel;
         private Dataset ds;
         public event EventHandler ReturnToDatasets;
+        private int currentMouseOverRow;
 
         public DatasetView(string userId,string datasetId)
         {
@@ -131,7 +132,12 @@ namespace WaaSAlphaMark1
         private void icbLoadData_Click(object sender, EventArgs e)
         {
             NewFile frm = new NewFile(DatasetId,UserId);
+            frm.FormClosed += RefreshDataFiles;
             frm.Show();
+        }
+
+        private void RefreshDataFiles(object sender, EventArgs e)
+        {
             FillDatasetFiles();
         }
 
@@ -160,6 +166,49 @@ namespace WaaSAlphaMark1
 
             DatasetDataTest frm = new DatasetDataTest(UserId,DatasetId);
             frm.Show();
+        }
+
+        private void DisplayFileOptions(object sender, MouseEventArgs e)
+        {
+            //TODO
+            if (e.Button == MouseButtons.Right)
+            {
+                ContextMenu m = new ContextMenu();
+                m.MenuItems.Add(new MenuItem("Delete", DeleteFileOnClick));
+                m.MenuItems.Add(new MenuItem("Process", ProcessFileOnClick));
+                currentMouseOverRow = dgvFiles.HitTest(e.X, e.Y).RowIndex;
+                m.Show(dgvFiles, new Point(e.X, e.Y));
+
+            }
+        }
+
+        private void ProcessFileOnClick(object sender, EventArgs args)
+        {
+            if (dgvFiles.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgvFiles.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvFiles.Rows[selectedrowindex];
+                string datasetFileId = Convert.ToString(selectedRow.Cells["Id"].Value);
+                datasetModel.ProcessDatasetFile(datasetFileId);
+                FillDatasetFiles();
+            }
+        }
+
+        private void DeleteFileOnClick(object sender, EventArgs args) 
+        {
+            if (dgvFiles.SelectedCells.Count > 0)
+            {
+                int selectedrowindex = dgvFiles.SelectedCells[0].RowIndex;
+                DataGridViewRow selectedRow = dgvFiles.Rows[selectedrowindex];
+                string datasetFileId = Convert.ToString(selectedRow.Cells["Id"].Value);
+                datasetModel.DeleteDatasetFile(DatasetId, datasetFileId);
+                FillDatasetFiles();
+            }
+        }
+
+        private void dgvFiles_MouseClick(object sender, MouseEventArgs e)
+        {
+            DisplayFileOptions(sender, e);
         }
     }
 }

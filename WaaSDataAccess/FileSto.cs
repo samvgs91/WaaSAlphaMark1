@@ -21,7 +21,6 @@ namespace WaaSDataAccess
         public string GetAccount() { return GetAccountName(); }
 
         public string GetContainer() { return GetContainerName(); }
-
         public bool AddFile(string fileName,string destinyPath, string subDestinyPath, string sourcePath,string container)
         {
 
@@ -58,7 +57,6 @@ namespace WaaSDataAccess
             return true;
                 
         }
-
         public bool DeleteFile(string fileName, string destinyPath, string subDestinyPath, string container)
         {
 
@@ -83,7 +81,6 @@ namespace WaaSDataAccess
 
                 return true;
         }
-
         public bool CopyFile(string fileName, string sourcePath, string destinyPath, string subDestinyPath, string container)
         {
 
@@ -108,7 +105,6 @@ namespace WaaSDataAccess
 
              return true;
         }
-
         public DataTable GetMetataFromExcelFile(string fileName, string destinyPath, string container)
         {
             DataLakeServiceClient connection = GetConnection();

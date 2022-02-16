@@ -28,6 +28,7 @@ namespace WaaSAlphaMark1
         private string fileName = string.Empty;
         private long fileSize;
         private DatasetModel datasetModel;
+        //public event EventHandler ReturnTo;
 
         public NewFile(string DatasetId,string UserId)
         {

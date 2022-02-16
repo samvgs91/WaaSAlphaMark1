@@ -19,7 +19,7 @@ namespace WaaSDomain
             string accountName = fileSto.GetAccount();
             string containerName = fileSto.GetContainer();
             string userId = destinyPath;
-            string path = containerName + "/" + userId;
+            string path = userId;
 
 
             //   workspaceModel.AddFile(fileName, "abcId","TableDemoDW", filePath, "waas-data");

@@ -63,18 +63,23 @@ namespace WaaSDomain
             {  return false; }
             
         }
-
         public bool DeleteDataset(string DatasetId)
         {
             //We need to add methods to delete others files
             return datasetDao.DeleteDataset(DatasetId);
         }
+        public bool DeleteDatasetFile(string DatasetId, string DatasetFileId)
+        {
+            FileDataset file = datasetDao.GetDatasetFileById(DatasetFileId);
+            bool fsFileBool = fileSto.DeleteFile(file.Name, file.UserId, file.DatasetId, file.Container);
+            bool dsFileBool = datasetDao.DeleteDatasetFile(DatasetFileId);
 
+            return true; 
+        }
         public List<Dataset> GetDatasets(string UserId)
         {
             return datasetDao.GetDatasets(UserId);
         }
-
         public Dataset GetDataset(string userId, string datasetId)
         {
             return datasetDao.GetDataset(userId, datasetId);
@@ -83,7 +88,6 @@ namespace WaaSDomain
         {
             return datasetDao.GetDatasetFiles(DatasetId, UserId);
         }
-
         public DataTable GetDataSetData(string UserId,string DatasetId)
         {
             Dataset ds = datasetDao.GetDataset(UserId,DatasetId);

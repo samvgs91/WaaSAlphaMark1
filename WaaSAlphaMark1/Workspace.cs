@@ -27,7 +27,6 @@ namespace WaaSAlphaMark1
             this.currentMouseOverRow = -1;
             InitializeComponent();
             FillWorkspaceFiles();
-
         }
 
         private void ibtNewFile_Click(object sender, EventArgs e)
@@ -63,7 +62,6 @@ namespace WaaSAlphaMark1
             }
 
         }
-
         private void FillWorkspaceFiles()
         {
 
